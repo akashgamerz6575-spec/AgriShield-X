@@ -42,7 +42,7 @@ Traditional agriculture apps are **reactive**: a farmer only scans a crop after 
 
 ### 3. 📡 Disease Outbreak Radar (`/radar`)
 - Geospatial mapping powered by Leaflet and OpenStreetMap.
-- Real-time cluster radius visualization for active regional disease outbreaks.
+- **Simulated Regional Outbreak Intelligence**: Demonstrates spatial epidemiology detection architecture using a simulated regional outbreak dataset across Raichur District to calculate transmission vectors.
 - Filterable by crop (Tomato, Paddy, Cotton, Chilli) and severity (High, Moderate, Low).
 - Proximity warning banner calculating exposure distance to user fields.
 - Transparent disclosure badge: *Demo Regional Outbreak Dataset*.
@@ -70,7 +70,7 @@ Traditional agriculture apps are **reactive**: a farmer only scans a crop after 
 - Explicit risk factor driver tags on every action item.
 
 ### 8. 📊 Market Intelligence (`/market`)
-- APMC mandi price indices for major regional commodities (Tomato, Paddy, Cotton, Chilli).
+- **Demo Market Dataset**: Representative APMC mandi price benchmarks based on historical Agmarknet ranges for regional commodities (Tomato, Paddy, Cotton, Chilli).
 - Economic protection modeling calculating crop loss exposure vs. preventive input ROI (~35x return on investment).
 
 ### 9. ⚡ Predictive Impact Simulator (`/simulator`)
@@ -83,6 +83,23 @@ Traditional agriculture apps are **reactive**: a farmer only scans a crop after 
 - Instant toggle from the top navigation bar without page reloads.
 
 ---
+
+
+---
+
+## 📊 Data Provenance & Subsystem Classification
+
+To ensure complete judge transparency, AgriShield X explicitly distinguishes live integrations from demo/simulated benchmark datasets:
+
+| Subsystem / Capability | Status & Source | Details |
+| :--- | :--- | :--- |
+| **Crop Doctor Vision AI** | **Live AI / Fallback** | Google Gemini 2.5 Flash server-side inference when `GEMINI_API_KEY` is configured; authentic 4-language deterministic agronomist diagnosis fallback when omitted. |
+| **Farm Copilot AI** | **Live AI / Fallback** | Google Gemini 2.5 Flash with live farm telemetry injection; smart intent-classified 4-language fallback when offline/unconfigured. |
+| **Hyper-Local Weather** | **Live External API** | Live telemetry fetched from Open-Meteo free agro-meteorological API (temperature, humidity, precipitation). |
+| **Disease Outbreak Radar** | **Simulated Dataset** | Demo Regional Outbreak Dataset across Raichur District demonstrating spatial transmission and proximity exposure architecture. |
+| **Market Mandi Prices** | **Demo Dataset** | Demo Market Dataset calibrated against historical Agmarknet APMC benchmarks for economic loss modeling. |
+| **Farm Health Risk Engine** | **Deterministic Math** | Client-side 0–100 mathematical risk calculation reacting in real-time to active infections, weather, and completed actions. |
+| **Multilingual Engine** | **100% Native** | Comprehensive UTF-8 dictionaries for English, Kannada (ಕನ್ನಡ), Hindi (हिन्दी), and Tamil (தமிழ்). |
 
 ## 🔒 Responsible AI Safeguards
 

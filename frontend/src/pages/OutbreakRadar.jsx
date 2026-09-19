@@ -68,8 +68,20 @@ export default function OutbreakRadar() {
         <div className="flex items-center gap-2 self-start sm:self-center">
           <span className="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold flex items-center gap-1.5 shadow-2xs">
             <Info className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-            <span>{t.outbreakRadar.disclaimer || 'Simulated Regional Outbreak Dataset'}</span>
+            <span>{t.outbreakRadar.disclaimer || 'Demo Regional Outbreak Dataset'}</span>
           </span>
+        </div>
+      </div>
+
+      
+      {/* Detection Architecture Disclosure */}
+      <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 flex items-start gap-3 shadow-2xs">
+        <Info className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+        <div className="leading-relaxed">
+          <span className="font-semibold text-slate-900 dark:text-slate-200 block mb-0.5">
+            {t.outbreakRadar.archTitle || 'Simulated Regional Outbreak Intelligence:'}
+          </span>
+          {t.outbreakRadar.archDesc || 'This module demonstrates AgriShield X\'s spatial epidemiology architecture using a simulated regional outbreak dataset across Raichur District to model pathogen spread and proximity risk.'}
         </div>
       </div>
 

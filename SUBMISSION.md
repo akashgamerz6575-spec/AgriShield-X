@@ -56,6 +56,23 @@ Agricultural intelligence must be accessible to every farmer:
 
 ---
 
+
+---
+
+## 📊 Data Provenance & Subsystem Classification
+
+To ensure complete judge transparency, AgriShield X explicitly distinguishes live integrations from demo/simulated benchmark datasets:
+
+| Subsystem / Capability | Status & Source | Details |
+| :--- | :--- | :--- |
+| **Crop Doctor Vision AI** | **Live AI / Fallback** | Google Gemini 2.5 Flash server-side inference when `GEMINI_API_KEY` is configured; authentic 4-language deterministic agronomist diagnosis fallback when omitted. |
+| **Farm Copilot AI** | **Live AI / Fallback** | Google Gemini 2.5 Flash with live farm telemetry injection; smart intent-classified 4-language fallback when offline/unconfigured. |
+| **Hyper-Local Weather** | **Live External API** | Live telemetry fetched from Open-Meteo free agro-meteorological API (temperature, humidity, precipitation). |
+| **Disease Outbreak Radar** | **Simulated Dataset** | Demo Regional Outbreak Dataset across Raichur District demonstrating spatial transmission and proximity exposure architecture. |
+| **Market Mandi Prices** | **Demo Dataset** | Demo Market Dataset calibrated against historical Agmarknet APMC benchmarks for economic loss modeling. |
+| **Farm Health Risk Engine** | **Deterministic Math** | Client-side 0–100 mathematical risk calculation reacting in real-time to active infections, weather, and completed actions. |
+| **Multilingual Engine** | **100% Native** | Comprehensive UTF-8 dictionaries for English, Kannada (ಕನ್ನಡ), Hindi (हिन्दी), and Tamil (தமிழ்). |
+
 ## 🛡️ Responsible AI & Ethical Safety Guardrails
 
 - **Zero Client-Side Secrets**: Gemini API keys are never bundled into the client build. All calls route through an Express / Vercel Serverless proxy with strict request validation.
@@ -88,7 +105,7 @@ Follow these steps to evaluate AgriShield X locally:
    - Review proximity alert warnings calculating distance to the farmer's land.
 
 5. **Engage Farm Copilot (`/copilot`)**:
-   - Click any suggested prompt chip (e.g., *"Why is my Farm Health Score at 78/100?"*).
+   - Click any suggested prompt chip (e.g., *"Why is my Farm Health Score at 5/100?"*).
    - Notice the AI agent using live farm context (4 fields, weather, outbreak distance) in its recommendations.
 
 6. **Test Predictive Simulator (`/simulator`)**:

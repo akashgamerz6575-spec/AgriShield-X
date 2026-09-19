@@ -145,8 +145,8 @@ export const translations = {
         "prevention": "Preventive Measures",
         "explanation": "Transparent AI Reasoning"
       },
-      "organicTreatment": "Organic / Biological Control",
-      "chemicalTreatment": "Chemical Treatment Protocol",
+      "organicTreatment": "Organic Treatment Options",
+      "chemicalTreatment": "Label-Compliant Chemical Guidance",
       "saveToHistory": "Log to Field Timeline",
       "savedSuccess": "Logged to Field Timeline Successfully!"
     },
@@ -674,7 +674,7 @@ export const translations = {
         "explanation": "पारदर्शी एआई तर्क"
       },
       "organicTreatment": "जैविक / प्राकृतिक नियंत्रण",
-      "chemicalTreatment": "रासायनिक उपचार प्रोटोकॉल",
+      "chemicalTreatment": "लेबल-अनुपालन रासायनिक मार्गदर्शन",
       "saveToHistory": "खेत टाइमलाइन में दर्ज करें",
       "savedSuccess": "खेत टाइमलाइन में सफलतापूर्वक दर्ज किया गया!"
     },

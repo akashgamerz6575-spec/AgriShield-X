@@ -27,7 +27,18 @@ export default function MarketIntelligence() {
         </div>
 
         <div className="px-3.5 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300 font-medium self-start sm:self-center shadow-2xs">
-          {t.market.mandiLocation || 'Agmarknet & APMC Live Index Proxy'}
+          {t.market.mandiLocation || 'Demo Market Dataset • APMC Benchmark Proxy'}
+        </div>
+      </div>
+
+      {/* Demo Dataset Provenance Notice */}
+      <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 flex items-start gap-3 shadow-2xs">
+        <Store className="w-4 h-4 text-teal-600 dark:text-teal-400 shrink-0 mt-0.5" />
+        <div className="leading-relaxed">
+          <span className="font-semibold text-slate-900 dark:text-slate-200 block mb-0.5">
+            {t.market.provenanceTitle || 'Demo Market Dataset Transparency Notice:'}
+          </span>
+          {t.market.provenanceDesc || 'Commodity price indices shown are representative regional benchmarks based on historical Agmarknet ranges for demonstration and economic crop protection valuation. They do not represent real-time spot trades.'}
         </div>
       </div>
 
@@ -59,7 +70,7 @@ export default function MarketIntelligence() {
               </div>
 
               <div>
-                <span className="text-xs text-slate-500 dark:text-slate-400 block">{t.market.priceCol || 'Current Mandi Price'}</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 block">{t.market.priceCol || 'Benchmark Mandi Price (Demo)'}</span>
                 <div className="text-2xl font-bold text-slate-900 dark:text-white font-outfit mt-1">
                   ₹{item.pricePerQuintal.toLocaleString()}
                   <span className="text-xs font-normal text-slate-500 dark:text-slate-400 ml-1">/ Quintal</span>

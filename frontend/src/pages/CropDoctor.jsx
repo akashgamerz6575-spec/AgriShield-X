@@ -269,7 +269,7 @@ export default function CropDoctor() {
         <div className="flex items-center gap-2 self-start sm:self-center">
           <span className="px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-800 dark:text-emerald-400 text-xs font-semibold flex items-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>Dual Organic & Chemical Prescriptions</span>
+            <span>Organic Treatment Options & Label-Compliant Chemical Guidance</span>
           </span>
         </div>
       </div>
@@ -357,8 +357,21 @@ export default function CropDoctor() {
                   </p>
                 </div>
 
+                
                 <div className="flex items-center gap-2 self-start sm:self-center">
+                  {scanResult.mode === 'ai_live' ? (
+                    <span className="px-3 py-1 rounded-full bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800/80 text-purple-700 dark:text-purple-300 text-xs font-bold flex items-center gap-1.5 shadow-2xs">
+                      <Sparkles className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                      Gemini Live AI Inference
+                    </span>
+                  ) : (
+                    <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-medium flex items-center gap-1.5 shadow-2xs">
+                      <ShieldCheck className="w-3.5 h-3.5 text-slate-500" />
+                      Demo / Fallback Analysis
+                    </span>
+                  )}
                   <span className={`text-xs font-bold px-3 py-1 rounded-lg ${
+
                     scanResult.data.severity === 'High' || scanResult.data.severity === 'Critical' || scanResult.data.severity === 'ಹೆಚ್ಚು' || scanResult.data.severity === 'उच्च' || scanResult.data.severity === 'அதிகம்'
                       ? 'bg-rose-50 text-rose-800 border border-rose-200 dark:bg-rose-500/20 dark:text-rose-300 dark:border-rose-500/30'
                       : scanResult.data.severity === 'Low' || scanResult.data.severity === 'ಕಡಿಮೆ' || scanResult.data.severity === 'कम' || scanResult.data.severity === 'குறைவு'
