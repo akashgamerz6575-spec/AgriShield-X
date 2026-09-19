@@ -1,11 +1,17 @@
 import React from 'react';
 import { useFarm } from '../context/FarmContext';
-import { Shield, Languages, RotateCcw, AlertTriangle, CheckCircle, Activity } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Shield, Languages, RotateCcw, Activity } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   const { lang, setLang, t, farmRiskState, resetDemoFarm } = useFarm();
-  const location = useLocation();
+
+  const languages = [
+    { code: 'en', label: 'EN' },
+    { code: 'kn', label: 'ಕನ್ನಡ' },
+    { code: 'hi', label: 'हिन्दी' },
+    { code: 'ta', label: 'தமிழ்' }
+  ];
 
   return (
     <header className="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 lg:px-8 py-3 transition-all">
@@ -26,7 +32,7 @@ export default function Navbar() {
         </Link>
 
         {/* Global Health Status Badge & Actions */}
-        <div className="flex items-center gap-3 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           
           {/* Farm Risk Badge */}
           <div className={`hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold ${farmRiskState.badgeColor}`}>
@@ -49,12 +55,7 @@ export default function Navbar() {
           {/* Multilingual Selector */}
           <div className="flex items-center gap-1 bg-slate-800/90 border border-slate-700 rounded-lg p-1">
             <Languages className="w-3.5 h-3.5 text-slate-400 ml-1 hidden sm:block" />
-            {[
-              { code: 'en', label: 'EN' },
-              { code: 'kn', label: 'ಕನ್ನಡ' },
-              { code: 'hi', label: 'हिंदी' },
-              { code: 'ta', label: 'தமிழ்' }
-            ].map(l => (
+            {languages.map(l => (
               <button
                 key={l.code}
                 onClick={() => setLang(l.code)}

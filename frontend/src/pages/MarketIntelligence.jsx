@@ -1,0 +1,111 @@
+import React from 'react';
+import { useFarm } from '../context/FarmContext';
+import { TrendingUp, TrendingDown, Store, ArrowUpRight, ShieldCheck, DollarSign, BarChart3 } from 'lucide-react';
+
+export default function MarketIntelligence() {
+  const { t, marketPrices } = useFarm();
+
+  return (
+    <div className="space-y-6 pb-12">
+      
+      {/* Title Header */}
+      <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-teal-400">
+              <TrendingUp className="w-5 h-5" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-white font-outfit">
+                {t.nav.market}
+              </h1>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Regional APMC mandi price indices & crop economic protection valuation
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700 text-xs text-slate-300 font-medium self-start sm:self-center">
+          Agmarknet & APMC Live Index Proxy
+        </div>
+      </div>
+
+      {/* APMC Mandi Price Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {marketPrices.map((item, idx) => {
+          const isUp = item.trend === 'UP';
+          const isDown = item.trend === 'DOWN';
+
+          return (
+            <div
+              key={idx}
+              className="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3"
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-white text-sm font-outfit">{item.crop}</span>
+                <span
+                  className={`text-xs font-semibold px-2 py-0.5 rounded-md flex items-center gap-1 ${
+                    isUp
+                      ? 'bg-emerald-500/20 text-emerald-300'
+                      : isDown
+                      ? 'bg-rose-500/20 text-rose-300'
+                      : 'bg-slate-800 text-slate-300'
+                  }`}
+                >
+                  {isUp ? <TrendingUp className="w-3 h-3" /> : isDown ? <TrendingDown className="w-3 h-3" /> : null}
+                  <span>{item.change}</span>
+                </span>
+              </div>
+
+              <div>
+                <span className="text-xs text-slate-400 block">Current Mandi Price</span>
+                <div className="text-2xl font-bold text-white font-outfit mt-1">
+                  ₹{item.pricePerQuintal.toLocaleString()}
+                  <span className="text-xs font-normal text-slate-400 ml-1">/ Quintal</span>
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+                <span className="flex items-center gap-1">
+                  <Store className="w-3 h-3 text-slate-500" />
+                  <span>{item.mandi}</span>
+                </span>
+                <span className="font-medium text-emerald-400">{item.momentum}</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Economic Value of Timely Protection Card */}
+      <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+        <div className="flex items-center gap-2 text-xs font-semibold text-slate-300 uppercase tracking-wider">
+          <BarChart3 className="w-4 h-4 text-emerald-400" />
+          <span>Crop Yield Loss Prevention Economics (2.5 Acre Tomato Model)</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs space-y-1">
+            <span className="text-slate-400 block">Estimated Field Production</span>
+            <span className="text-lg font-bold text-white font-outfit">350 Quintals</span>
+            <span className="text-[11px] text-slate-500 block">Gross Value: ~₹9,97,500</span>
+          </div>
+
+          <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-xs space-y-1">
+            <span className="text-rose-300 block">Unmitigated Early Blight Loss</span>
+            <span className="text-lg font-bold text-rose-200 font-outfit">-30% to -45% Yield</span>
+            <span className="text-[11px] text-rose-300/80 block">Potential loss: ₹2,99,000</span>
+          </div>
+
+          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs space-y-1">
+            <span className="text-emerald-300 block">AgriShield X Mitigation Cost</span>
+            <span className="text-lg font-bold text-emerald-200 font-outfit">&lt; ₹8,500 Bio-Inputs</span>
+            <span className="text-[11px] text-emerald-300/80 block">ROI: ~35x Saved Crop Value</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  );
+}

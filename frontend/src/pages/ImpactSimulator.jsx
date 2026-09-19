@@ -1,0 +1,168 @@
+import React, { useState } from 'react';
+import { useFarm } from '../context/FarmContext';
+import { Zap, AlertTriangle, ShieldAlert, ShieldCheck, Clock, ArrowRight, Activity } from 'lucide-react';
+
+export default function ImpactSimulator() {
+  const { t, farmRiskState } = useFarm();
+  const [selectedScenario, setSelectedScenario] = useState('treat_now');
+
+  const scenarios = {
+    treat_now: {
+      id: 'treat_now',
+      title: 'Treat Now (Immediate Action)',
+      riskScore: Math.max(15, farmRiskState.riskScore - 26),
+      healthScore: Math.min(85, farmRiskState.healthScore + 26),
+      status: 'Risk Controlled',
+      badgeColor: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30',
+      lossEstimate: '< 2% (Negligible)',
+      impact: 'Fungal spore germination arrested on Field A. Infected lower leaves pruned and bio-fungicide applied within 24h. Spore propagation halted before canopy spread.'
+    },
+    delay_3_days: {
+      id: 'delay_3_days',
+      title: 'Delay Action by 3 Days',
+      riskScore: Math.min(85, farmRiskState.riskScore + 18),
+      healthScore: Math.max(20, farmRiskState.healthScore - 18),
+      status: 'High Outbreak Threat',
+      badgeColor: 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
+      lossEstimate: '15% - 25% Yield Loss',
+      impact: 'High relative humidity (82%) and imminent rain forecast accelerate fungal sporulation. Secondary concentric leaf lesions expand upward into middle canopy foliage.'
+    },
+    ignore: {
+      id: 'ignore',
+      title: 'Ignore Warning & Take No Action',
+      riskScore: 92,
+      healthScore: 8,
+      status: 'Critical Crop Loss Exposure',
+      badgeColor: 'bg-rose-500/20 text-rose-300 border border-rose-500/30',
+      lossEstimate: '35% - 50% Crop Loss',
+      impact: 'Severe premature defoliation across Field A (Tomato). Pathogen spores disperse by wind & rain splash toward adjacent fields (Field D Chilli).'
+    }
+  };
+
+  const active = scenarios[selectedScenario];
+
+  return (
+    <div className="space-y-6 pb-12">
+      
+      {/* Title Header */}
+      <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-indigo-400">
+              <Zap className="w-5 h-5" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-white font-outfit">
+                {t.nav.simulator}
+              </h1>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Predictive consequence modeling: "What happens to my farm health if I delay action?"
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="px-3.5 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700 text-indigo-300 text-xs font-medium self-start sm:self-center">
+          Predictive Decision Support Sandbox
+        </div>
+      </div>
+
+      {/* Scenario Selection Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {[
+          { id: 'treat_now', label: '1. Treat Now (Immediate)', color: 'hover:border-emerald-500' },
+          { id: 'delay_3_days', label: '2. Delay Action 3 Days', color: 'hover:border-amber-500' },
+          { id: 'ignore', label: '3. Ignore Warning', color: 'hover:border-rose-500' }
+        ].map((sc) => (
+          <button
+            key={sc.id}
+            onClick={() => setSelectedScenario(sc.id)}
+            className={`p-4 rounded-xl border text-left transition-all flex items-center justify-between ${
+              selectedScenario === sc.id
+                ? 'bg-slate-800 border-indigo-500 text-white shadow-md ring-1 ring-indigo-500/30'
+                : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <span className="font-semibold text-xs">{sc.label}</span>
+            <ArrowRight
+              className={`w-4 h-4 ${
+                selectedScenario === sc.id ? 'text-indigo-400' : 'text-slate-600'
+              }`}
+            />
+          </button>
+        ))}
+      </div>
+
+      {/* Active Scenario Result Box */}
+      <div className="p-6 sm:p-8 rounded-2xl bg-slate-900 border border-slate-800 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-800 gap-3">
+          <div>
+            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">
+              Simulated Scenario Outcome
+            </span>
+            <h2 className="text-xl font-bold text-white font-outfit mt-1">
+              {active.title}
+            </h2>
+          </div>
+
+          <span className={`px-3 py-1 rounded-lg text-xs font-bold ${active.badgeColor} self-start sm:self-center`}>
+            {active.status}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          
+          {/* Projected Health Score */}
+          <div className="p-5 rounded-xl bg-slate-950/60 border border-slate-800/80 text-center space-y-1">
+            <span className="text-xs text-slate-400 block">Projected Health Score</span>
+            <div className="text-4xl font-extrabold text-white font-outfit mt-1">
+              {active.healthScore}
+              <span className="text-xs font-normal text-slate-500 ml-1">/ 100</span>
+            </div>
+            <span className="text-[11px] text-slate-500 block">
+              Simulated Risk Score: {active.riskScore}%
+            </span>
+          </div>
+
+          {/* Estimated Yield Loss */}
+          <div className="p-5 rounded-xl bg-slate-950/60 border border-slate-800/80 text-center space-y-1">
+            <span className="text-xs text-slate-400 block">Projected Yield Impact</span>
+            <div className="text-xl font-bold text-white font-outfit mt-2">
+              {active.lossEstimate}
+            </div>
+            <span className="text-[11px] text-slate-500 block">
+              Based on 2.5 acre tomato canopy
+            </span>
+          </div>
+
+          {/* Action Urgency */}
+          <div className="p-5 rounded-xl bg-slate-950/60 border border-slate-800/80 text-center space-y-1">
+            <span className="text-xs text-slate-400 block">Action Urgency</span>
+            <div className="text-xl font-bold text-white font-outfit mt-2">
+              {selectedScenario === 'treat_now' ? 'High ROI Window' : selectedScenario === 'delay_3_days' ? 'Critical Escalation' : 'Permanent Damage'}
+            </div>
+            <span className="text-[11px] text-slate-500 block">
+              Mitigation window: ~48 hours
+            </span>
+          </div>
+
+        </div>
+
+        {/* Narrative Analysis */}
+        <div className="p-5 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-2 text-xs">
+          <span className="text-slate-300 font-semibold block text-sm">
+            Agronomic Analysis & Pathogen Dynamics:
+          </span>
+          <p className="text-slate-400 leading-relaxed">
+            {active.impact}
+          </p>
+        </div>
+
+        <div className="text-[11px] text-slate-500 text-center">
+          Notice: Predictive consequence simulator for educational and agricultural decision support purposes.
+        </div>
+      </div>
+
+    </div>
+  );
+}
