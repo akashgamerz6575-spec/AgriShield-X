@@ -6,7 +6,43 @@ import { translations } from '../i18n/translations';
 const FarmContext = createContext();
 
 export const FarmProvider = ({ children }) => {
-  const [lang, setLang] = useState('en');
+  // Theme State: 'dark' | 'light', defaulting to dark and persisting in localStorage
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('agrishield_theme');
+    if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme;
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      return 'light';
+    }
+    return 'dark';
+  });
+
+  // Apply theme class to <html> element
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    } else {
+      root.classList.remove('dark');
+      root.classList.add('light');
+    }
+    localStorage.setItem('agrishield_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  // Language State: 'en' | 'kn' | 'hi' | 'ta'
+  const [lang, setLangState] = useState(() => {
+    return localStorage.getItem('agrishield_lang') || 'en';
+  });
+
+  const setLang = (newLang) => {
+    setLangState(newLang);
+    localStorage.setItem('agrishield_lang', newLang);
+  };
+
   const [fields, setFields] = useState(() => {
     const saved = localStorage.getItem('agrishield_fields');
     return saved ? JSON.parse(saved) : initialFields;
@@ -29,7 +65,7 @@ export const FarmProvider = ({ children }) => {
 
   const [outbreakReports, setOutbreakReports] = useState(demoOutbreakDataset);
   const [marketPrices] = useState(demoMarketPrices);
-  const [activeView, setActiveView] = useState('landing'); // 'landing' or 'app'
+  const [activeView, setActiveView] = useState('landing');
 
   // Fetch real weather if backend or free open weather is available
   useEffect(() => {
@@ -95,7 +131,6 @@ export const FarmProvider = ({ children }) => {
       return field;
     }));
 
-    // Add a corresponding action if disease detected
     if (diagnosisData.diseaseName !== 'Healthy') {
       const targetField = fields.find(f => f.id === fieldId) || { name: 'Target Field' };
       const newAction = {
@@ -116,6 +151,9 @@ export const FarmProvider = ({ children }) => {
   return (
     <FarmContext.Provider
       value={{
+        theme,
+        toggleTheme,
+        setTheme,
         lang,
         setLang,
         t,

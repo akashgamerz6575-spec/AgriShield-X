@@ -1,11 +1,21 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+const getLangName = (lang) => {
+  switch (lang) {
+    case 'kn': return 'Kannada (ಕನ್ನಡ)';
+    case 'hi': return 'Hindi (हिन्दी)';
+    case 'ta': return 'Tamil (தமிழ்)';
+    default: return 'English';
+  }
+};
+
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
-  const { prompt, farmContext } = req.body || {};
+  const { prompt, farmContext, lang = "en" } = req.body || {};
   if (!prompt) return res.status(400).json({ error: "Prompt query is required" });
 
+  const targetLang = getLangName(lang);
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (apiKey && apiKey !== "YOUR_GEMINI_API_KEY" && apiKey.trim() !== "") {
@@ -15,13 +25,15 @@ export default async function handler(req, res) {
 
       const systemPrompt = `You are AgriShield Copilot, an AI agronomic advisor for precision crop protection.
 Active Farm Context:
-- Farm Health Score: ${farmContext?.healthScore || 78}/100 (${farmContext?.riskTier || "Moderate Risk"})
-- Registered Fields: ${JSON.stringify(farmContext?.fieldsSummary || ["Field A: Tomato (Early Blight)", "Field B: Paddy (Healthy)", "Field C: Cotton (Irrigation Due)", "Field D: Chilli (Outbreak Exposure)"])}
-- Current Weather: Temp ${farmContext?.weather?.temp || "28"}�C, Humidity ${farmContext?.weather?.humidity || "82"}%, Forecast: ${farmContext?.weather?.forecast || "Rain expected"}
-- Regional Outbreak Status: ${farmContext?.outbreakAlert || "Early Blight cluster detected 12km away"}
+- Farm Health Score: ${farmContext?.healthScore || 5}/100 (${farmContext?.statusText || "Critical Risk"})
+- Weather: Humidity ${farmContext?.humidity || 82}%, Rain Probability ${farmContext?.rainProbability || 75}%
+- Active Alert: Early Blight on Field A (Tomato)
 
-Answer the farmer query concisely using known context. Append a responsible advisory note if recommending chemical products.
-Query: ${prompt}`;
+CRITICAL LANGUAGE INSTRUCTION:
+You MUST respond entirely in ${targetLang}.
+Keep your reply structured, concise, respectful, and actionable.
+
+User Question: ${prompt}`;
 
       const result = await model.generateContent(systemPrompt);
       const response = await result.response;
@@ -39,17 +51,30 @@ Query: ${prompt}`;
   const query = (prompt || "").toLowerCase();
   let reply = "";
 
-  if (query.includes("irrigate") || query.includes("water")) {
-    reply = `Based on your live farm context, Field A (Tomato) has an active Early Blight warning and humidity is high (${farmContext?.weather?.humidity || 82}%). Rain is also expected. Recommendation: Delay overhead sprinkler irrigation for Field A to prevent leaf wetness duration. Soil moisture for Paddy (Field B) remains optimal.`;
-  } else if (query.includes("high risk") || query.includes("field a") || query.includes("score") || query.includes("why")) {
-    reply = `Your Farm Health Score is currently ${farmContext?.healthScore || 78}/100 (${farmContext?.riskTier || "Moderate Risk"}). Top drivers raising risk:
-1. High humidity (+18 pts risk driver)
-2. Nearby regional Early Blight outbreak cluster within 12km (+16 pts)
-3. Recent foliage symptom scan (+14 pts).
-
-Completing the task "Inspect Tomato Field A & Apply Mulch" will lower your risk score by 12 points.`;
+  if (lang === 'kn') {
+    if (query.includes("irrigate") || query.includes("ನೀರಾವರಿ") || query.includes("ನೀರು")) {
+      reply = "ಕ್ಷೇತ್ರ A (ಟೊಮೇಟೊ) ನಲ್ಲಿ ಅರ್ಲಿ ಬ್ಲೈಟ್ ಸಕ್ರಿಯವಾಗಿದೆ ಮತ್ತು ಆರ್ದ್ರತೆ ಹೆಚ್ಚಾಗಿದೆ (82%). ಮಳೆಯೂ ನಿರೀಕ್ಷಿಸಲಾಗಿದೆ. ಎಲೆಗಳ ತೇವಾಂಶ ಕಡಿಮೆ ಮಾಡಲು ಕ್ಷೇತ್ರ A ಗೆ ಸ್ಪ್ರಿಂಕ್ಲರ್ ನೀರಾವರಿಯನ್ನು ಮುಂದೂಡಿ.";
+    } else {
+      reply = "AgriShield ಕೋಪೈಲಟ್ ವಿಶ್ಲೇಷಣೆ: ನಿಮ್ಮ ಕೃಷಿ ಆರೋಗ್ಯ ಸ್ಕೋರ್ 5/100 (ತೀವ್ರ ಅಪಾಯ) ಆಗಿದೆ. ಹೆಚ್ಚಿನ ಆರ್ದ್ರತೆಯು ರೋಗ ಹರಡುವಿಕೆಯನ್ನು ಪ್ರೇರೇಪಿಸುತ್ತದೆ. ಕಾರ್ಯ ಕೇಂದ್ರದಲ್ಲಿರುವ ತುರ್ತು ಕಾರ್ಯಗಳನ್ನು ಪರಿಹರಿಸಿ.";
+    }
+  } else if (lang === 'hi') {
+    if (query.includes("irrigate") || query.includes("सिंचाई") || query.includes("पानी")) {
+      reply = "खेत A (टमाटर) में अर्ली ब्लाइट सक्रिय है और आर्द्रता अधिक है (82%)। बारिश का भी पूर्वानुमान है। पत्तियों के गीलेपन को कम करने के लिए खेत A में स्प्रिंकलर सिंचाई स्थगित करें।";
+    } else {
+      reply = "AgriShield कोपायलट विश्लेषण: आपका फार्म स्वास्थ्य स्कोर 5/100 (गंभीर जोखिम) है। उच्च आर्द्रता से फंगल जोखिम बढ़ा हुआ है। कार्य केंद्र के कार्यों को तुरंत पूरा करें।";
+    }
+  } else if (lang === 'ta') {
+    if (query.includes("irrigate") || query.includes("பாசனம்") || query.includes("தண்ணீர்")) {
+      reply = "புலம் A (தக்காளி) இல் கருகல் நோய் தாக்கம் உள்ளது மற்றும் ஈரப்பதம் 82% அதிகமாக உள்ளது. இலைகளில் ஈரப்பதத்தைக் குறைக்க புலம் A க்கான தெளிப்பு நீர்ப்பாசனத்தைத் தள்ளிப்போடுங்கள்.";
+    } else {
+      reply = "AgriShield கோபிலாட் பகுப்பாய்வு: உங்கள் பண்ணை ஆரோக்கிய மதிப்பெண் 5/100 (முக்கிய ஆபத்து) ஆக உள்ளது. செயல் மைய பணிகளை விரைவாக முடிக்கவும்.";
+    }
   } else {
-    reply = `AgriShield Copilot analyzed your farm state: Your 4 registered fields (Tomato, Paddy, Cotton, Chilli) operate at an aggregate Farm Health Score of ${farmContext?.healthScore || 78}/100. Humidity is high (${farmContext?.weather?.humidity || 82}%), so fungal risk remains elevated for tomato fields. Review high-priority items in Action Center.`;
+    if (query.includes("irrigate") || query.includes("water")) {
+      reply = "Based on your live farm context, Field A (Tomato) has an active Early Blight warning and humidity is high (82%). Rain is also expected. Recommendation: Delay overhead sprinkler irrigation for Field A to prevent leaf wetness duration. Soil moisture for Paddy (Field B) remains optimal.";
+    } else {
+      reply = "AgriShield Copilot analysis: Your 4 registered fields operate at an aggregate Farm Health Score of 5/100 (Critical Risk). High humidity (82%) elevates fungal risk for tomato crops. Inspect Field A and complete high-priority tasks in your Action Center.";
+    }
   }
 
   return res.status(200).json({

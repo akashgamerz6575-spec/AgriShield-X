@@ -24,7 +24,7 @@ function MainLayout() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-emerald-500/30 selection:text-emerald-300">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 flex flex-col transition-colors duration-200 selection:bg-emerald-500/30 selection:text-emerald-800 dark:selection:text-emerald-300">
       <Navbar />
       <div className="flex-1 flex flex-col lg:flex-row w-full min-w-0">
         <Sidebar />

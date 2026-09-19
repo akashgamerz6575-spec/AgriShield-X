@@ -1,11 +1,21 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+const getLangName = (lang) => {
+  switch (lang) {
+    case 'kn': return 'Kannada (ಕನ್ನಡ)';
+    case 'hi': return 'Hindi (हिन्दी)';
+    case 'ta': return 'Tamil (தமிழ்)';
+    default: return 'English';
+  }
+};
+
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
-  const { image, mimeType } = req.body || {};
+  const { image, mimeType, lang = "en" } = req.body || {};
   if (!image) return res.status(400).json({ error: "Base64 image is required" });
 
+  const targetLang = getLangName(lang);
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (apiKey && apiKey !== "YOUR_GEMINI_API_KEY" && apiKey.trim() !== "") {
@@ -17,7 +27,11 @@ export default async function handler(req, res) {
 Analyze the provided crop/plant image.
 1. Verify if the image contains a plant, leaf, or crop. If NOT, return strict JSON: {"isCrop": false, "reason": "Not a recognized plant or crop image."}.
 2. If it IS a crop, identify the plant, disease/health condition, severity, estimated affected surface area percentage, spread risk, action urgency, visible visual symptoms, organic & chemical treatment categories, prevention steps, and explainable visual reasoning.
-CRITICAL SAFETY INSTRUCTION: Do NOT fabricate chemical dosage quantities. Instruct the user to verify exact chemical dosage and application rates on the registered product label or with local agricultural extension officers.
+CRITICAL SAFETY INSTRUCTION: Do NOT fabricate chemical dosage quantities. Instruct the user to verify exact chemical dosage and application rates on registered product labels or with local agricultural extension officers.
+
+CRITICAL LANGUAGE INSTRUCTION:
+You MUST generate all user-facing descriptions (symptoms, treatments, prevention, explanation) in ${targetLang}.
+Preserve standard scientific Latin binomials (e.g. Alternaria solani) in standard Latin format.
 
 Return output STRICTLY as valid JSON with this exact structure:
 {
@@ -74,7 +88,124 @@ Return output STRICTLY as valid JSON with this exact structure:
     }
   }
 
-  // Mandatory Fallback Transparency
+  // Localized Fallback
+  if (lang === 'kn') {
+    return res.status(200).json({
+      isCrop: true,
+      analysisMode: "Demo Analysis",
+      isDemo: true,
+      data: {
+        cropType: "ಟೊಮೇಟೊ (ಅರ್ಕ ರಕ್ಷಕ್)",
+        diseaseName: "Early Blight (Alternaria solani)",
+        confidence: 94,
+        severity: "ಹೆಚ್ಚು",
+        affectedArea: 26,
+        spreadRisk: "ಹೆಚ್ಚು",
+        urgency: "24-48 ಗಂಟೆಗಳಲ್ಲಿ ಚಿಕಿತ್ಸೆ ನೀಡಿ",
+        symptoms: [
+          "ಪಕ್ವ ಎಲೆಗಳ ಮೇಲೆ ಏಕಕೇಂದ್ರಕ ಉಂಗುರದಂತಹ ಕಂದು ಕಲೆಗಳು",
+          "ನೆಕ್ರೋಟಿಕ್ ಕಲೆಗಳ ಸುತ್ತಲೂ ಹಳದಿ ವರ್ತುಲ",
+          "ಕೆಳಭಾಗದ ಎಲೆಗಳು ಹಳದಿಯಾಗಿ ಉದುರುವುದು"
+        ],
+        treatment: {
+          organic: [
+            "ಬ್ಯಾಸಿಲಸ್ ಸಬ್ಟಿಲಿಸ್ ಜೈವಿಕ ಶಿಲೀಂಧ್ರನಾಶಕ ಅಥವಾ ಕಾಪರ್ ಆಕ್ಟಾನೋಯೇಟ್ ಸಿಂಪಡಿಸಿ",
+            "ನೆಲದಿಂದ 15 ಸೆಂ.ಮೀ ಎತ್ತರದವರೆಗೆ ಸೋಂಕಿತ ಕೆಳ ಎಲೆಗಳನ್ನು ಕತ್ತರಿಸಿ ತೆಗೆಯಿರಿ"
+          ],
+          chemical: [
+            "ಪ್ರತಿ ಲೀಟರ್ ನೀರಿಗೆ 2 ಗ್ರಾಂ ಮ್ಯಾಂಕೋಜೆಬ್ 75% WP ಸಿಂಪಡಿಸಿ",
+            "7 ದಿನಗಳ ನಂತರ ಅಜಾಕ್ಸಿಸ್ಟ್ರೋಬಿನ್ ದ್ರಾವಣವನ್ನು ಸಿಂಪಡಿಸಿ"
+          ],
+          safetyAdvisory: "ರಾಸಾಯನಿಕ ಸಿಂಪಡಣೆಗೆ ಮುನ್ನ ಲೇಬಲ್ ಸೂಚನೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ."
+        },
+        prevention: [
+          "ಶಿಲೀಂಧ್ರ ಹರಡುವಿಕೆಯನ್ನು ತಡೆಯಲು ಹನಿ ನೀರಾವರಿ ಬಳಸಿ",
+          "ಮಣ್ಣಿನ ತೇವಾಂಶ ನಿಯಂತ್ರಿಸಲು ಒಣ ಹುಲ್ಲಿನ ಹೊದಿಕೆ (ಮಲ್ಚಿಂಗ್) ಹಾಕಿ",
+          "ಗಿಡಗಳ ನಡುವೆ ಸೂಕ್ತ ಅಂತರ ಕಾಯ್ದುಕೊಳ್ಳಿ"
+        ],
+        explanation: "ದೃಶ್ಯ ವಿಶ್ಲೇಷಣೆಯು Alternaria solani ನ ವಿಶಿಷ್ಟ ಏಕಕೇಂದ್ರಕ ಉಂಗುರದ ಲಕ್ಷಣಗಳನ್ನು ದೃಢಪಡಿಸಿದೆ."
+      }
+    });
+  }
+
+  if (lang === 'hi') {
+    return res.status(200).json({
+      isCrop: true,
+      analysisMode: "Demo Analysis",
+      isDemo: true,
+      data: {
+        cropType: "टमाटर (अर्का रक्षक)",
+        diseaseName: "Early Blight (Alternaria solani)",
+        confidence: 94,
+        severity: "उच्च",
+        affectedArea: 26,
+        spreadRisk: "उच्च",
+        urgency: "24-48 घंटों के भीतर उपचार करें",
+        symptoms: [
+          "निचली पत्तियों पर संकेंद्रित छल्लों जैसे गहरे भूरे धब्बे",
+          "घावों के चारों ओर पीला क्लोरोटिक घेरा",
+          "निचली पत्तियों का समय से पहले सूखना"
+        ],
+        treatment: {
+          organic: [
+            "बैसिलस सबटिलिस बायो-फंगीसाइड या कॉपर ऑक्टानोएट का छिड़काव करें",
+            "जमीन से 15 सेमी ऊपर तक संक्रमित निचली पत्तियों को काटें"
+          ],
+          chemical: [
+            "मैंकोजेब 75% डब्ल्यूपी @ 2 ग्राम/लीटर का छिड़काव करें",
+            "7 दिनों के बाद एजोक्सीस्ट्रोबिन स्प्रे से बदलें"
+          ],
+          safetyAdvisory: "रासायनिक कीटनाशक छिड़काव से पहले उत्पाद लेबल निर्देशों की पुष्टि करें।"
+        },
+        prevention: [
+          "ओवरहेड स्प्रे के स्थान पर ड्रिप सिंचाई का प्रयोग करें",
+          "मिट्टी के छींटों को रोकने के लिए पुआल की मल्चिंग लगाएं",
+          "हवा के संचलन के लिए पौधों के बीच पर्याप्त दूरी रखें"
+        ],
+        explanation: "दृश्य विश्लेषण में Alternaria solani के संकेंद्रित वलय पैटर्न की पहचान हुई है।"
+      }
+    });
+  }
+
+  if (lang === 'ta') {
+    return res.status(200).json({
+      isCrop: true,
+      analysisMode: "Demo Analysis",
+      isDemo: true,
+      data: {
+        cropType: "தக்காளி (அர்கா ரக்ஷக்)",
+        diseaseName: "Early Blight (Alternaria solani)",
+        confidence: 94,
+        severity: "அதிகம்",
+        affectedArea: 26,
+        spreadRisk: "அதிகம்",
+        urgency: "24-48 மணி நேரத்திற்குள் சிகிச்சை",
+        symptoms: [
+          "முதிர்ந்த இலைகளில் வளைய வடிவிலான அடர் பழுப்பு புள்ளிகள்",
+          "புள்ளிகளைச் சுற்றி மஞ்சள் நிற வளையங்கள்",
+          "கீழ் இலைகள் முன்கூட்டியே உதிர்தல்"
+        ],
+        treatment: {
+          organic: [
+            "பாசில்லஸ் சப்டிலிஸ் அல்லது காப்பர் ஆக்டானோயேட் தெளிக்கவும்",
+            "பாதிக்கப்பட்ட கீழ் இலைகளை 15 செ.மீ வரை கத்தரிக்கவும்"
+          ],
+          chemical: [
+            "மேன்கோசெப் 75% WP @ 2 கிராம்/லிட்டர் தெளிக்கவும்",
+            "7 நாட்களுக்குப் பிறகு அஸோக்ஸிஸ்ட்ரோபின் தெளிக்கவும்"
+          ],
+          safetyAdvisory: "வேதியியல் மருந்துகளைப் பயன்படுத்துவதற்கு முன் லேபிள் வழிமுறைகளைப் படிக்கவும்."
+        },
+        prevention: [
+          "தெளிப்பு நீர்ப்பாசனத்திற்குப் பதிலாக சொட்டு நீர்ப்பாசனத்தைப் பயன்படுத்தவும்",
+          "மண் தெறிப்பதைத் தடுக்க வைக்கோல் மூடாக்கு இடவும்",
+          "செடிகளுக்கு இடையே போதிய இடைவெளி விடவும்"
+        ],
+        explanation: "காட்சி பகுப்பாய்வு Alternaria solani இன் வளைய வடிவ அறிகுறிகளை உறுதிப்படுத்துகிறது."
+      }
+    });
+  }
+
   return res.status(200).json({
     isCrop: true,
     analysisMode: "Demo Analysis",
@@ -86,7 +217,7 @@ Return output STRICTLY as valid JSON with this exact structure:
       severity: "High",
       affectedArea: 26,
       spreadRisk: "High",
-      urgency: "Treat within 24�48 hours",
+      urgency: "Treat within 24-48 hours",
       symptoms: [
         "Concentric brown target-ring spots on mature lower foliage",
         "Chlorotic yellow halos surrounding dark leaf lesions",

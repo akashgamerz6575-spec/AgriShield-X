@@ -17,11 +17,11 @@ router.get('/health', (req, res) => {
 // Crop Image Analysis
 router.post('/ai/analyze-crop', async (req, res) => {
   try {
-    const { image, mimeType } = req.body;
+    const { image, mimeType, lang } = req.body;
     if (!image) {
       return res.status(400).json({ error: 'Base64 image string is required' });
     }
-    const result = await analyzeCropImage(image, mimeType);
+    const result = await analyzeCropImage(image, mimeType, lang);
     res.json(result);
   } catch (error) {
     console.error('[API Error /ai/analyze-crop]:', error);
@@ -32,11 +32,11 @@ router.post('/ai/analyze-crop', async (req, res) => {
 // AgriShield Copilot Chat
 router.post('/ai/copilot', async (req, res) => {
   try {
-    const { prompt, farmContext } = req.body;
+    const { prompt, farmContext, lang } = req.body;
     if (!prompt) {
       return res.status(400).json({ error: 'Prompt query is required' });
     }
-    const result = await getCopilotResponse(prompt, farmContext);
+    const result = await getCopilotResponse(prompt, farmContext, lang);
     res.json(result);
   } catch (error) {
     console.error('[API Error /ai/copilot]:', error);
