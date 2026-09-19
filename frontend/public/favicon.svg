@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Outer Protective Enclosing Contour (Option 3 DNA) -->
+  <path
+    d="M 6 26 A 14 14 0 0 1 26 6"
+    stroke="#059669"
+    stroke-width="2.6"
+    stroke-linecap="round"
+    opacity="0.45"
+  />
+  <!-- Middle Precision Sensing Arc (Option 2 DNA) -->
+  <path
+    d="M 10 24 A 9.5 9.5 0 0 1 24 10"
+    stroke="#059669"
+    stroke-width="2.6"
+    stroke-linecap="round"
+    opacity="0.75"
+  />
+  <!-- Inner Sensing Arc -->
+  <path
+    d="M 14 22 A 5.5 5.5 0 0 1 22 14"
+    stroke="#059669"
+    stroke-width="2.4"
+    stroke-linecap="round"
+  />
+  <!-- Central Crop Leaf / Seed Node -->
+  <path
+    d="M 16 20 C 13.5 18 12.8 14.5 16 11 C 19.2 14.5 18.5 18 16 20 Z"
+    fill="#059669"
+  />
+</svg>

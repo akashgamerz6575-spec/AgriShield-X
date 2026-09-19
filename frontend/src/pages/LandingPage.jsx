@@ -1,7 +1,8 @@
 import React from "react";
 import { useFarm } from "../context/FarmContext";
 import { useNavigate } from "react-router-dom";
-import { Shield, Sparkles, ArrowRight, Activity, Zap, CheckCircle2, AlertTriangle, Stethoscope, Radar, Bot, Sprout, Sun, Moon, Languages } from "lucide-react";
+import { Sparkles, ArrowRight, Activity, Zap, CheckCircle2, AlertTriangle, Stethoscope, Radar, Bot, Sprout, Sun, Moon, Languages } from "lucide-react";
+import { AgriShieldLogo, AgriShieldMark } from "../components/BrandMark";
 
 export default function LandingPage() {
   const { theme, toggleTheme, lang, setLang, t } = useFarm();
@@ -19,13 +20,8 @@ export default function LandingPage() {
       
       {/* Top Floating Control Bar */}
       <header className="max-w-6xl mx-auto w-full px-4 sm:px-6 pt-6 flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-xs">
-            <Shield className="w-4 h-4 stroke-[2.5]" />
-          </div>
-          <span className="font-extrabold text-lg tracking-tight font-outfit text-slate-900 dark:text-white">
-            AgriShield <span className="text-emerald-600 dark:text-emerald-400">X</span>
-          </span>
+        <div className="flex items-center">
+          <AgriShieldLogo iconSize={28} showSubtitle={false} />
         </div>
 
         <div className="flex items-center gap-2">
@@ -94,26 +90,26 @@ export default function LandingPage() {
 
           <button
             onClick={() => navigate("/doctor")}
-            className="w-full sm:w-auto px-8 py-3.5 bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white font-semibold text-sm sm:text-base rounded-2xl flex items-center justify-center gap-2.5 transition-colors cursor-pointer shadow-xs"
+            className="w-full sm:w-auto px-6 py-3.5 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-sm sm:text-base rounded-2xl shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
           >
-            <Stethoscope className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-            <span>{t.diagnoseCrop || 'Diagnose Leaf Scan'}</span>
+            <Stethoscope className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            <span>{t.diagnoseLeaf || 'Diagnose a Leaf Photo'}</span>
           </button>
         </div>
 
-      </div>
-
-      {/* Differentiator Comparison Section */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
-        <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
-          <h2 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center">
-            {t.landing.featuresTitle || 'The AgriShield X Predictive Architecture'}
+        {/* Competitive Differentiation Matrix */}
+        <div className="mt-14 p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-sm max-w-4xl mx-auto">
+          <h2 className="text-xs uppercase font-extrabold tracking-widest text-emerald-600 dark:text-emerald-400 font-outfit">
+            {t.landing.paradigmShift || 'The Paradigm Shift'}
           </h2>
+          <p className="mt-1 text-lg sm:text-xl font-bold text-slate-900 dark:text-white font-outfit">
+            {t.landing.diffTitle || 'Reactive Diagnosis vs Predictive Prevention'}
+          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
             
             {/* Traditional Apps */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-rose-50/60 dark:bg-rose-950/15 border border-rose-200 dark:border-rose-900/30 text-left flex flex-col justify-between space-y-4">
+            <div className="p-5 sm:p-6 rounded-2xl bg-rose-50/60 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900/40 text-left flex flex-col justify-between space-y-4">
               <div>
                 <span className="text-xs font-bold text-rose-700 dark:text-rose-400 uppercase tracking-wider">Traditional Reactive Apps</span>
                 <div className="mt-3 flex items-center gap-2 text-slate-700 dark:text-slate-300 font-mono text-xs">
@@ -180,7 +176,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="border-t border-slate-200 dark:border-slate-800/80 py-6 px-4 text-center text-xs text-slate-500 dark:text-slate-400">
-        AgriShield X &bull; Built with pride for HackDevengers 2.0 &bull; Predictive Farm Intelligence
+        AgriShield X • Built with pride for HackDevengers 2.0 • Predictive Farm Intelligence
       </footer>
 
     </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useFarm } from '../context/FarmContext';
-import { Shield, Languages, RotateCcw, Activity, Sun, Moon } from 'lucide-react';
+import { Languages, RotateCcw, Activity, Sun, Moon } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { AgriShieldLogo, AgriShieldMobileLogo } from './BrandMark';
 
 export default function Navbar() {
   const { theme, toggleTheme, lang, setLang, t, farmRiskState, resetDemoFarm } = useFarm();
@@ -26,16 +27,12 @@ export default function Navbar() {
       <div className="w-full flex items-center justify-between gap-2 sm:gap-4">
         
         {/* Brand Logo & Name */}
-        <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-md shadow-emerald-950/20 group-hover:scale-105 transition-transform">
-            <Shield className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
+        <Link to="/" className="flex items-center group shrink-0" aria-label="AgriShield X Home">
+          <div className="hidden sm:block">
+            <AgriShieldLogo iconSize={32} />
           </div>
-          <div>
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              <span className="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white font-outfit">AgriShield</span>
-              <span className="bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 text-[10px] sm:text-xs font-bold px-1.5 sm:px-2 py-0.5 rounded-full border border-emerald-500/30">X</span>
-            </div>
-            <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 hidden md:block">Predictive AI Crop Protection</p>
+          <div className="sm:hidden">
+            <AgriShieldMobileLogo />
           </div>
         </Link>
 
