@@ -70,7 +70,7 @@ export const translations = {
       filterSeverity: "Filter by Severity",
       proximityWarning: "Proximity Alert Active",
       nearbyClusters: "Active Regional Outbreak Clusters",
-      demoDataNotice: "Demo Regional Outbreak Dataset (Verified Simulated Incidents)"
+      demoDataNotice: "Simulated Regional Outbreak Dataset"
     },
     actionCenter: {
       title: "Action Center",
@@ -162,7 +162,7 @@ export const translations = {
       filterSeverity: "ತೀವ್ರತೆ",
       proximityWarning: "ಸಮೀಪದ ರೋಗ ಎಚ್ಚರಿಕೆ",
       nearbyClusters: "ಸಕ್ರಿಯ ಪ್ರಾದೇಶಿಕ ಕ್ಲಸ್ಟರ್‌ಗಳು",
-      demoDataNotice: "ಪ್ರಾದೇಶಿಕ ಮಾದರಿ ದತ್ತಾಂಶ"
+      demoDataNotice: "ಮಾದರಿ ಪ್ರಾದೇಶಿಕ ರೋಗ ದತ್ತಾಂಶ"
     },
     actionCenter: {
       title: "ಕ್ರಿಯಾ ಕೇಂದ್ರ",
@@ -254,7 +254,7 @@ export const translations = {
       filterSeverity: "गंभीरता अनुसार",
       proximityWarning: "निकटता चेतावनी सक्रिय",
       nearbyClusters: "सक्रिय क्षेत्रीय क्लस्टर",
-      demoDataNotice: "क्षेत्रीय नमूना डेटासेट"
+      demoDataNotice: "सिम्युलेटेड क्षेत्रीय प्रकोप डेटासेट"
     },
     actionCenter: {
       title: "कार्य केंद्र",
@@ -346,7 +346,7 @@ export const translations = {
       filterSeverity: "தீவிர நிலை",
       proximityWarning: "அருகாமை எச்சரிக்கை செயலில் உள்ளது",
       nearbyClusters: "செயலில் உள்ள மண்டல பரவல்கள்",
-      demoDataNotice: "மண்டல மாதிரி தரவுத்தொகுப்பு"
+      demoDataNotice: "மாதிரி மண்டல நோய் தரவுத்தொகுப்பு"
     },
     actionCenter: {
       title: "செயல் மையம்",

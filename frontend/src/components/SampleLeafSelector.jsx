@@ -1,5 +1,5 @@
 import React from 'react';
-import { Leaf, Sparkles } from 'lucide-react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 
 export default function SampleLeafSelector({ onSelectSample }) {
   const sampleLeaves = [
@@ -26,41 +26,73 @@ export default function SampleLeafSelector({ onSelectSample }) {
     },
     {
       id: 'sample-healthy',
-      crop: 'Tomato',
-      condition: 'Healthy Leaf Condition',
+      crop: 'Control Plant',
+      condition: 'Healthy Leaf (No Pathogen)',
       severity: 'Low',
       imageSvg: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230f2818"/><path d="M50 15 C20 40 25 80 50 90 C75 80 80 40 50 15 Z" fill="%234caf50"/><path d="M50 15 L50 90" stroke="%2381c784" stroke-width="2"/></svg>'
     }
   ];
 
   return (
-    <div className="mt-4">
-      <div className="flex items-center gap-2 mb-3">
-        <Sparkles className="w-4 h-4 text-emerald-400" />
-        <span className="text-xs font-semibold text-slate-300">Quick Test Samples for Judges:</span>
+    <div className="mt-5 space-y-3">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
+          <span className="text-xs font-bold text-slate-200 uppercase tracking-wider">
+            Quick Test Samples for Judges
+          </span>
+        </div>
+        <span className="text-[11px] text-slate-400 hidden sm:inline">Click to instant-diagnose</span>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {sampleLeaves.map((sample) => (
-          <button
-            key={sample.id}
-            onClick={() => onSelectSample(sample)}
-            className="p-3 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/70 hover:border-emerald-500/50 text-left transition-all group flex flex-col justify-between"
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <img src={sample.imageSvg} alt={sample.crop} className="w-8 h-8 rounded-lg object-cover" />
-              <div>
-                <p className="text-xs font-bold text-slate-200 group-hover:text-emerald-400 transition-colors">{sample.crop}</p>
-                <p className="text-[10px] text-slate-400 line-clamp-1">{sample.condition}</p>
+
+      {/* 2x2 Responsive Grid with generous padding & readable typography */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {sampleLeaves.map((sample) => {
+          const isHigh = sample.severity === 'High';
+          const isMod = sample.severity === 'Moderate';
+
+          return (
+            <button
+              key={sample.id}
+              onClick={() => onSelectSample(sample)}
+              className="p-3.5 rounded-xl bg-slate-950/80 hover:bg-slate-800/90 border border-slate-800 hover:border-emerald-500/50 text-left transition-all group flex flex-col justify-between shadow-sm hover:shadow-md cursor-pointer"
+            >
+              <div className="flex items-start gap-3 mb-2">
+                <img
+                  src={sample.imageSvg}
+                  alt={sample.crop}
+                  className="w-10 h-10 rounded-lg object-cover border border-slate-700/60 shrink-0 mt-0.5"
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-1">
+                    <p className="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors truncate">
+                      {sample.crop}
+                    </p>
+                    <ArrowRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-emerald-400 group-hover:translate-x-0.5 transition-all shrink-0" />
+                  </div>
+                  <p className="text-[11px] text-slate-300 font-medium leading-tight mt-0.5 break-words">
+                    {sample.condition}
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center justify-between text-[10px] mt-1 pt-2 border-t border-slate-700/50">
-              <span className="text-slate-400">Severity:</span>
-              <span className={`font-semibold ${
-                sample.severity === 'High' ? 'text-rose-400' : sample.severity === 'Moderate' ? 'text-amber-400' : 'text-emerald-400'
-              }`}>{sample.severity}</span>
-            </div>
-          </button>
-        ))}
+
+              <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+                <span className="text-slate-400 font-medium">Severity:</span>
+                <span
+                  className={`px-2 py-0.5 rounded-md font-bold text-[10px] ${
+                    isHigh
+                      ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+                      : isMod
+                      ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                      : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                  }`}
+                >
+                  {sample.severity} Severity
+                </span>
+              </div>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

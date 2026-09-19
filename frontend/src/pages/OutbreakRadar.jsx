@@ -3,7 +3,7 @@ import { useFarm } from '../context/FarmContext';
 import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Radar, AlertTriangle, Filter, MapPin, ShieldCheck } from 'lucide-react';
+import { Radar, AlertTriangle, Filter, MapPin, ShieldCheck, Info } from 'lucide-react';
 
 // Custom SVG Icons for Leaflet Markers
 const createMarkerIcon = (color) => {
@@ -45,14 +45,14 @@ export default function OutbreakRadar() {
     <div className="space-y-6 pb-12">
       
       {/* Header Banner */}
-      <div className="bg-slate-900 p-6 rounded-2xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-slate-900 p-5 sm:p-6 rounded-2xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-teal-400">
               <Radar className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white font-outfit">
+              <h1 className="text-xl sm:text-2xl font-bold text-white font-outfit">
                 {t.outbreakRadar.title}
               </h1>
               <p className="text-xs text-slate-400 mt-0.5">
@@ -62,9 +62,13 @@ export default function OutbreakRadar() {
           </div>
         </div>
 
-        {/* Mandatory Transparency Disclosure Badge */}
-        <div className="px-3.5 py-1.5 rounded-lg bg-slate-800/90 border border-slate-700 text-slate-300 text-xs font-medium self-start sm:self-center">
-          {t.outbreakRadar.demoDataNotice}
+        {/* Clear Data Disclosure Badge */}
+        <div
+          title="Sample incidents used to demonstrate the outbreak-detection workflow."
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 text-xs font-medium self-start sm:self-center cursor-help"
+        >
+          <Info className="w-3.5 h-3.5 text-cyan-400" />
+          <span>Simulated Regional Outbreak Dataset</span>
         </div>
       </div>
 
@@ -73,23 +77,23 @@ export default function OutbreakRadar() {
         <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
         <div className="leading-relaxed">
           <span className="font-semibold text-amber-100 block mb-0.5">
-            Farm Proximity Alert:
+            Farm Proximity Exposure Warning:
           </span>
-          Early Blight cluster active within 12km of your registered tomato fields (Kolar - Chikkaballapur belt). Elevated fungal spore pressure detected.
+          Early Blight cluster active within 12km of your registered tomato field (Kolar - Chikkaballapur corridor). Spore transmission risk elevated under high relative humidity.
         </div>
       </div>
 
-      {/* Grid: Left Filters & Clusters List, Right Map */}
+      {/* Full Width GIS Layout on Desktop */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Left Column: Filter Controls and List */}
+        {/* Left Column: Filter Controls and Cluster List (4 cols) */}
         <div className="lg:col-span-4 space-y-4">
           
           {/* Filter Card */}
           <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
             <div className="flex items-center gap-2 text-xs font-semibold text-slate-300 uppercase tracking-wider">
               <Filter className="w-4 h-4 text-emerald-400" />
-              <span>Map Filters</span>
+              <span>Outbreak Map Filters</span>
             </div>
 
             <div className="space-y-3 text-xs">
@@ -132,7 +136,7 @@ export default function OutbreakRadar() {
               </span>
             </div>
 
-            <div className="space-y-2.5 max-h-[360px] overflow-y-auto pr-1">
+            <div className="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
               {filteredReports.map((rep) => {
                 const isHigh = rep.severity === 'High' || rep.severity === 'Critical';
                 return (
@@ -151,7 +155,7 @@ export default function OutbreakRadar() {
                       </span>
                     </div>
                     <p className="text-[11px] text-slate-400">
-                      {rep.locationName || rep.location} &bull; {rep.reportCount || rep.reports} incident reports
+                      {rep.locationName || rep.location} &bull; {rep.reportCount || rep.reports} incidents
                     </p>
                     <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1.5 border-t border-slate-800/60">
                       <span className="flex items-center gap-1">
@@ -168,14 +172,14 @@ export default function OutbreakRadar() {
 
         </div>
 
-        {/* Right Column: Leaflet Map */}
-        <div className="lg:col-span-8 p-3 rounded-2xl bg-slate-900 border border-slate-800 min-h-[480px] flex flex-col">
-          <div className="w-full flex-1 rounded-xl overflow-hidden min-h-[450px]">
+        {/* Right Column: Expansive Leaflet Map (8 cols) */}
+        <div className="lg:col-span-8 p-3 rounded-2xl bg-slate-900 border border-slate-800 min-h-[520px] flex flex-col">
+          <div className="w-full flex-1 rounded-xl overflow-hidden min-h-[500px]">
             <MapContainer
               center={[12.9716, 77.5946]}
               zoom={10}
               scrollWheelZoom={false}
-              className="w-full h-full min-h-[450px]"
+              className="w-full h-full min-h-[500px]"
             >
               <TileLayer
                 attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
@@ -192,7 +196,7 @@ export default function OutbreakRadar() {
                 <Popup>
                   <div className="p-1 text-slate-900">
                     <strong className="text-emerald-700 text-xs block">Your AgriShield Farm</strong>
-                    <span className="text-[11px] text-slate-600">Bengaluru Agri-Belt (4 Registered Fields)</span>
+                    <span className="text-[11px] text-slate-600">Bengaluru Agri-Zone (4 Registered Fields)</span>
                   </div>
                 </Popup>
               </Marker>
