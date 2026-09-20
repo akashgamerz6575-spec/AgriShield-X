@@ -1,213 +1,328 @@
-# 🌾 AgriShield X
-> **Predictive AI for Smarter Crop Protection**  
-> *Built for HackDevengers 2.0*
+﻿# AgriShield X
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
-[![Vite](https://img.shields.io/badge/Vite-5.4-blue.svg)](https://vitejs.dev/)
-[![React](https://img.shields.io/badge/React-18-cyan.svg)](https://reactjs.org/)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-teal.svg)](https://tailwindcss.com/)
-[![Google Gemini](https://img.shields.io/badge/AI-Gemini%202.5%20Flash-orange.svg)](https://deepmind.google/technologies/gemini/)
+**Crop protection is a decision problem, not just an image-classification problem.**
 
-## 🌐 Live Production Deployment
-- **Live Application**: [https://agrishield-x.vercel.app](https://agrishield-x.vercel.app)
-- **GitHub Repository**: [https://github.com/akashgamerz6575-spec/AgriShield-X](https://github.com/akashgamerz6575-spec/AgriShield-X)
-
-### 📊 Data Provenance & Real vs Simulated Architecture
-- **REAL (Live Production Services)**:
-  - **Google Gemini AI Copilot**: Live context-aware agronomic reasoning and multilingual chat (English, Kannada, Hindi, Tamil) powered by Google Gemini AI.
-  - **Google Gemini Crop Doctor 2.0**: Real multimodal visual leaf disease diagnosis with transparent explainable reasoning and organic/chemical protocols.
-  - **Open-Meteo Weather Intelligence**: Live hyper-local weather telemetry (temperature, humidity, precipitation probability, wind speed).
-- **DEMO / SIMULATED DATASETS**:
-  - **Regional Disease Outbreak Radar**: Simulated epidemiological pathogen clusters across Karnataka agricultural corridors calibrated for hackathon demo evaluation.
-  - **APMC Market Intelligence**: Regional benchmark prices and trend indicators.
-  - **Economic Loss Prevention Scenarios**: Multi-scenario ROI and yield preservation models.
+AgriShield X turns fragmented crop-health signals into an explainable, multilingual action loop — helping farmers move from observation to informed action, field by field.
 
 ---
 
+## Live Demo
 
-AgriShield X is a next-generation predictive agricultural intelligence platform that transitions crop management from **reactive damage control** to **proactive, explainable risk prevention**. By fusing multimodal computer vision, hyper-local agro-meteorology, regional disease outbreak clustering, and context-aware LLM advisory, AgriShield X empowers farmers and agronomists to arrest pathogen outbreaks before widespread crop loss occurs.
-
----
-
-## 🎯 The Core Problem & Innovation
-
-Traditional agriculture apps are **reactive**: a farmer only scans a crop after leaves are heavily diseased and yield is already destroyed. 
-
-**AgriShield X is predictive and preventative:**
-1. **Explainable Risk Engine**: Calculates a composite 0–100 Farm Health Score powered by transparent multi-factor weighting (humidity thresholds, rain likelihood, regional pathogen proximity, active field infections).
-2. **Context-Aware Farm Copilot**: An AI agronomic assistant that doesn't just answer generic questions—it queries live farm state, registered field varieties, local humidity, and pending action items.
-3. **Regional Outbreak Radar**: Interactive mapping of active pathogen clusters across agricultural corridors with automatic proximity warnings for registered fields.
-4. **AI Crop Doctor 2.0**: High-precision leaf vision analysis offering transparent diagnostic reasoning, organic biocontrols, label-compliant chemical guidance, and chemical safety advisories.
-5. **Dynamic Action Center**: Resolving prioritized agronomic interventions directly feeds back into the risk engine, lowering risk scores and raising farm health.
+**Production:** [https://agrishield-x.vercel.app](https://agrishield-x.vercel.app)
+**Repository:** [https://github.com/akashgamerz6575-spec/AgriShield-X](https://github.com/akashgamerz6575-spec/AgriShield-X)
 
 ---
 
-## 🚀 Key Modules & Capabilities
+## The Problem
 
-### 1. 🛡️ Farm Health Command Center (`/dashboard`)
-- Real-time gauge of **Farm Health Score** (0–100) and risk tiering (Low, Moderate, High, Critical).
-- **Explainable "Why?" Modal**: Mathematical breakdown of exact point additions/deductions driving risk.
-- 5-factor component breakdown: Disease Risk, Weather Risk, Irrigation Health, Crop Condition, Outbreak Exposure.
-- 7-day historical health trend chart powered by Recharts.
+Plant-health management is often reactive.
 
-### 2. 🔬 AI Crop Doctor 2.0 (`/doctor`)
-- Multimodal image diagnosis for plant foliage.
-- **Judge-Friendly Preloaded Test Samples**: Instant testing of Tomato Early Blight, Paddy Leaf Blast, Cotton Leaf Curl, and Healthy Control leaves without manual image hunting.
-- Categorized treatment plans: Organic/Biological Controls, Chemical Protocols, Long-term Field Prevention.
-- **Strict Chemical Safety Advisory**: Clear guidance ensuring farmers consult registered labels and local extension officers.
-- **Save to Field Timeline**: Directly records scan results into field history.
+Image-based disease detection can identify a problem after symptoms become visible — but diagnosis alone does not answer the full operational question a farmer faces every day.
 
-### 3. 📡 Disease Outbreak Radar (`/radar`)
-- Geospatial mapping powered by Leaflet and OpenStreetMap.
-- **Simulated Regional Outbreak Intelligence**: Demonstrates spatial epidemiology detection architecture using a simulated regional outbreak dataset across Raichur District to calculate transmission vectors.
-- Filterable by crop (Tomato, Paddy, Cotton, Chilli) and severity (High, Moderate, Low).
-- Proximity warning banner calculating exposure distance to user fields.
-- Transparent disclosure badge: *Demo Regional Outbreak Dataset*.
+Weather information exists. Crop condition observations exist. Field data exists. Disease guidance exists. Disease pressure from nearby farms may exist.
 
-### 4. 🤖 AgriShield Farm Copilot (`/copilot`)
-- Context-aware conversational AI assistant powered by Google Gemini 2.5 Flash via secure server-side API proxy.
-- Automatically injects live farm state: health score, field statuses, ambient temperature/humidity, and regional alerts.
-- Suggested query chips for rapid demonstration.
-- Clear mode disclosure: Live Gemini AI vs. Deterministic Agronomic Fallback.
+Yet these signals often remain disconnected.
 
-### 5. 🌿 Crop Tracker & Lifecycle Management (`/fields`)
-- Comprehensive overview of all registered fields (Tomato Arka Rakshak, Paddy IR64, Bt Cotton Bollgard II, Red Chilli Guntur Sannam).
-- Deep-dive metadata: Variety, acreage, growth stage, sowing date, soil moisture.
-- Chronological field event timeline logging planting, irrigation, diagnosis scans, and alerts.
+The farmer still has to manually interpret those fragments and answer:
 
-### 6. 🌤️ Weather Intelligence (`/weather`)
-- Live hyper-local agro-meteorological forecasting via Open-Meteo API.
-- **Pathogen Germination Risk Meter**: Evaluates relative humidity thresholds (>75%) and leaf wetness duration.
-- 5-day agricultural microclimate forecast with temperature ranges and rain likelihood.
-- Agronomic spraying advisory to avoid pesticide runoff during rain windows.
+- Is my field becoming risky — and why?
+- Which of my fields deserves attention first?
+- What should I actually do, and when?
+- Can I understand the recommendation clearly in my language?
+- Did the action I took actually help?
 
-### 7. ✅ Action Center (`/actions`)
-- Prioritized task checklist (Immediate, Routine, Monitoring).
-- Interactive completion toggle: marking tasks resolved instantly applies relief points in the risk engine.
-- Explicit risk factor driver tags on every action item.
+The result is a familiar failure pattern:
 
-### 8. 📊 Market Intelligence (`/market`)
-- **Demo Market Dataset**: Representative APMC mandi price benchmarks based on historical Agmarknet ranges for regional commodities (Tomato, Paddy, Cotton, Chilli).
-- Economic protection modeling calculating crop loss exposure vs. preventive input ROI (~35x return on investment).
+```
+FRAGMENTED SIGNALS
+  → MANUAL INTERPRETATION
+    → REACTIVE / UNCERTAIN DECISIONS
+```
 
-### 9. ⚡ Predictive Impact Simulator (`/simulator`)
-- Interactive decision sandbox answering: *"What happens if I delay action?"*
-- Compares 3 scenarios: **Treat Now (Immediate)**, **Delay 3 Days**, and **Ignore Warning**.
-- Displays projected health scores, yield loss estimates, and pathogen progression dynamics.
+The FAO estimates that plant pests and diseases are responsible for roughly **20–40% of global crop yield losses annually** — a significant share of which occurs where early-warning systems and decision support are absent or inaccessible.
+([FAO, The State of Food and Agriculture, 2023](https://www.fao.org/publications/sofa))
 
-### 10. 🌐 Multilingual Accessibility
-- Full native language localization across **English (EN)**, **Kannada (ಕನ್ನಡ)**, **Hindi (हिन्दी)**, and **Tamil (தமிழ்)**.
-- Instant toggle from the top navigation bar without page reloads.
+### The Design Question
+
+> "What if crop protection worked less like a disease search engine and more like an explainable early-warning and decision-support system?"
 
 ---
 
+## The Solution
+
+**AgriShield X turns fragmented crop-health signals into an explainable, multilingual action loop.**
+
+The system brings crop observations, weather, field context, and regional disease signals together — weighs them against each other, surfaces the most urgent priority, explains why, and suggests the next step in the farmer's language.
+
+### Signal → Decision Architecture
+
+```
+  Crop Image
++ Weather Conditions
++ Farm / Field Context
++ Crop State
++ Regional Disease Signals
+        ↓
+  Explainable Risk Model
+        ↓
+  Prioritized Alert
+        ↓
+  Multilingual Recommendation
+        ↓
+  Action
+        ↓
+  Tracking / Reassessment
+```
+
+### The Operational Loop
+
+```
+OBSERVE → DIAGNOSE → PREDICT → EXPLAIN → COMMUNICATE → ACT → TRACK
+```
+
+Every module in AgriShield X exists to serve one step in this loop.
 
 ---
 
-## 📊 Data Provenance & Subsystem Classification
+## Why AgriShield X Is Different
 
-To ensure complete judge transparency, AgriShield X explicitly distinguishes live integrations from demo/simulated benchmark datasets:
+### Diagnosis is only one signal
 
-| Subsystem / Capability | Status & Source | Details |
+Gemini Crop Doctor provides multimodal visual analysis of a leaf image — but a photograph of one leaf does not represent a whole farm. AgriShield X places the diagnosis result into field context before raising an alert.
+
+### Context changes risk
+
+The same disease symptom carries different urgency depending on current weather, crop growth stage, field moisture, and nearby disease pressure. AgriShield X weights these signals together rather than treating each in isolation.
+
+### Risk should be explainable
+
+A score of `Risk = 95` without explanation is not decision support. AgriShield X shows contributing factors clearly:
+
+| Factor | Direction |
+| :--- | :--- |
+| Disease pressure (active infection) | Increases risk |
+| Weather risk (humidity, leaf wetness forecast) | Increases risk |
+| Irrigation / soil moisture condition | Increases or decreases risk |
+| Crop condition / growth stage | Increases or decreases risk |
+| Regional outbreak proximity | Increases risk |
+| Completed mitigation actions | Decreases risk |
+
+Every risk alert has a **"Why?"** button that exposes the exact factor breakdown.
+
+### Alerts should lead to action
+
+A warning without a next step is incomplete. Every alert in AgriShield X connects directly to the Action Center with a prioritized recommendation.
+
+### Action should close the loop
+
+```
+Detect → Understand → Act → Reassess
+```
+
+When a farmer marks an action complete, the risk model immediately re-evaluates and the health score updates — creating a feedback loop rather than a one-shot notification.
+
+### Intelligence should speak the user's language
+
+English, Kannada, Hindi, and Tamil are part of the usability strategy, not an afterthought. See the dedicated accessibility section below.
+
+---
+
+## Example Decision Flow
+
+> *This is a prototype/demo workflow using a pre-seeded farm scenario. It does not imply scientifically validated disease forecasting.*
+
+**Field A — Tomato (Demo Scenario)**
+
+1. **Crop Doctor** identifies visual evidence consistent with Early Blight from an uploaded leaf image.
+2. **Weather module** reports humidity above 75% — conditions favorable for fungal progression.
+3. **Outbreak Radar** shows simulated regional disease clusters within proximity of the farm.
+4. **Farm context** identifies the affected field, crop variety, and current growth stage.
+5. **Risk model** combines those signals into a weighted health score with factor-level transparency.
+6. **Dashboard** raises a prioritized alert at the top of the command center.
+7. **"Why?"** modal explains the exact contribution of each factor to the current score.
+8. **Action Center** surfaces a concrete next step: inspect lower canopy, apply preventive treatment.
+9. **Farm Copilot** explains the situation in the farmer's selected language — with context drawn from the active farm state.
+
+---
+
+## Core Product Modules
+
+| Route | Module | Purpose in the Loop |
 | :--- | :--- | :--- |
-| **Crop Doctor Vision AI** | **Live AI / Fallback** | Google Gemini 2.5 Flash server-side inference when `GEMINI_API_KEY` is configured; authentic 4-language deterministic agronomist diagnosis fallback when omitted. |
-| **Farm Copilot AI** | **Live AI / Fallback** | Google Gemini 2.5 Flash with live farm telemetry injection; smart intent-classified 4-language fallback when offline/unconfigured. |
-| **Hyper-Local Weather** | **Live External API** | Live telemetry fetched from Open-Meteo free agro-meteorological API (temperature, humidity, precipitation). |
-| **Disease Outbreak Radar** | **Simulated Dataset** | Demo Regional Outbreak Dataset across Raichur District demonstrating spatial transmission and proximity exposure architecture. |
-| **Market Mandi Prices** | **Demo Dataset** | Demo Market Dataset calibrated against historical Agmarknet APMC benchmarks for economic loss modeling. |
-| **Farm Health Risk Engine** | **Deterministic Math** | Client-side 0–100 mathematical risk calculation reacting in real-time to active infections, weather, and completed actions. |
-| **Multilingual Engine** | **100% Native** | Comprehensive UTF-8 dictionaries for English, Kannada (ಕನ್ನಡ), Hindi (हिन्दी), and Tamil (தமிழ்). |
-
-## 🔒 Responsible AI Safeguards
-
-1. **Zero Client-Side Secrets**: All Gemini AI credentials are strictly handled server-side via Express / Vercel Serverless endpoints. No keys are ever exposed in client code or bundle artifacts.
-2. **Deterministic Fallback Transparency**: If external APIs or networks are unavailable, AgriShield X gracefully switches to verified agronomic fallback models and explicitly labels responses as *Demo / Fallback Mode*.
-3. **No Invented Chemical Dosages**: Rather than hallucinating chemical mixture ratios, the system provides standard active ingredient guidance paired with mandatory safety advisories.
-4. **Explainable Decision Support**: Every risk metric is backed by transparent mathematical formulas visible through the *Explain Why* modal.
+| `/dashboard` | **Farm Command Center** | Aggregated health score, prioritized alert, risk factor drivers, field overview, 7-day trend |
+| `/doctor` | **AI Crop Doctor** | Gemini multimodal leaf analysis — disease identification, severity, organic and chemical treatment protocols |
+| `/copilot` | **Farm Copilot** | Gemini-powered agronomic assistant with live farm context injection |
+| `/radar` | **Outbreak Radar** | Regional disease pressure map (simulated dataset) with proximity alerts |
+| `/fields` | **Crop Tracker** | Field registry, crop metadata, growth stage, event timeline |
+| `/weather` | **Weather Intelligence** | Live agro-meteorological data from Open-Meteo; spraying window advisory |
+| `/actions` | **Action Center** | Prioritized task list; completing tasks reduces risk score in real time |
+| `/market` | **Market Intelligence** | Representative commodity price benchmarks and economic loss modeling |
+| `/simulator` | **Impact Simulator** | Scenario modeling — treat now vs. delay vs. ignore |
 
 ---
 
-## 🛠️ System Architecture & Tech Stack
+## Intelligence Should Speak the Farmer's Language
+
+A technically correct recommendation has limited practical value if the person making the decision cannot comfortably understand it.
+
+```
+INSIGHT → UNDERSTANDING → ACTION
+```
+
+This is an accessibility and design decision, not cosmetic translation.
+
+AgriShield X currently supports:
+
+| Language | Coverage |
+| :--- | :--- |
+| English | Full interface + Copilot AI advisory |
+| Kannada (ಕನ್ನಡ) | Full interface + Copilot AI advisory |
+| Hindi (हिन्दी) | Full interface + Copilot AI advisory |
+| Tamil (தமிழ்) | Full interface + Copilot AI advisory |
+
+Language selection applies uniformly across alerts, action recommendations, and Copilot responses. Switching language requires no page reload.
+
+---
+
+## Architecture & Technical Implementation
 
 ```
 AgriShield-X/
-├── api/                     # Vercel serverless function endpoints
-│   ├── analyze-crop.js      # Serverless AI image diagnosis proxy
-│   ├── copilot.js           # Serverless context-aware chat proxy
-│   ├── weather.js           # Serverless Open-Meteo weather proxy
-│   └── outbreak-reports.js  # Serverless regional disease dataset
-├── backend/                 # Express backend API server (local & node environments)
-│   ├── routes/api.js        # REST routes (/api/health, /api/weather, /api/ai/*)
-│   ├── services/            # Gemini AI and Weather service integration
-│   └── server.js            # Express server with SPA static file delivery
-├── frontend/                # React 18 SPA with Vite & Tailwind CSS
-│   ├── src/
-│   │   ├── components/      # Navbar, Sidebar, WhyAlertModal, SampleLeafSelector
-│   │   ├── context/         # FarmContext (global farm state & actions)
-│   │   ├── data/            # Realistic baseline demo farm datasets
-│   │   ├── i18n/            # UTF-8 translation dictionaries (EN, KN, HI, TA)
-│   │   ├── pages/           # 10 core pages
-│   │   └── utils/           # Explainable risk engine algorithm
-│   └── vite.config.js       # Optimized Vite configuration with Rollup WASM bridge
-└── vercel.json              # Full-stack Vercel deployment configuration
+├── api/                        # Vercel serverless function endpoints
+│   ├── analyze-crop.js         # AI image diagnosis proxy (Gemini)
+│   ├── copilot.js              # Farm Copilot proxy (Gemini + farm context)
+│   ├── weather.js              # Open-Meteo weather proxy
+│   ├── outbreak-reports.js     # Regional disease dataset endpoint
+│   └── health.js               # API health and Gemini connectivity check
+├── backend/                    # Express backend server (local dev)
+│   ├── routes/api.js           # REST routes
+│   ├── services/               # Gemini and Weather service integrations
+│   └── server.js               # Express server with SPA delivery
+├── frontend/                   # React 18 SPA (Vite + Tailwind CSS)
+│   └── src/
+│       ├── components/         # Navbar, Sidebar, WhyAlertModal, SampleLeafSelector
+│       ├── context/            # FarmContext — global farm state and actions
+│       ├── data/               # Pre-seeded demo farm datasets
+│       ├── i18n/               # UTF-8 translation dictionaries (EN, KN, HI, TA)
+│       ├── pages/              # 9 core application pages
+│       └── utils/              # Explainable risk engine algorithm
+└── vercel.json                 # Full-stack Vercel deployment configuration
 ```
-
-- **Frontend**: React 18, Vite 5, Tailwind CSS 3.4, Lucide Icons, Leaflet & React-Leaflet, Recharts.
-- **Backend & Proxy**: Node.js, Express, Google Generative AI SDK (`@google/generative-ai`), Vercel Serverless.
-- **External Services**: Google Gemini 2.5 Flash, Open-Meteo Weather API, OpenStreetMap tiles.
 
 ---
 
-## 💻 Local Setup & Quickstart
+## Real vs. Demo / Simulated Data
+
+AgriShield X explicitly distinguishes live integrations from demo or simulated data.
+
+| Capability | Implementation | Status |
+| :--- | :--- | :--- |
+| Crop image analysis | Gemini 2.5 Flash multimodal AI | **Real AI** |
+| Farm Copilot | Gemini 2.5 Flash + live farm context | **Real AI** |
+| Weather data | Open-Meteo API | **Live external data** |
+| Demo farm state | Pre-seeded application data (4 fields, crops, events) | **Demo** |
+| Regional outbreak signals | Regional dataset (Raichur District scenario) | **Simulated** |
+| Risk engine | Explainable deterministic weighted model | **Prototype** |
+| Market intelligence | Representative regional benchmark dataset | **Demo** |
+| Economic impact modeling | Scenario-based calculation | **Prototype estimate** |
+
+---
+
+## Responsible AI & Limitations
+
+AgriShield X is a decision-support prototype.
+
+**It does not replace:**
+- Agronomists or plant pathologists
+- Local agricultural extension officers
+- Verified pesticide product labels and manufacturer guidance
+- State or national disease surveillance authorities
+
+**Specific disclosures:**
+
+- **AI states are disclosed:** Live Gemini responses are labeled as such. If Gemini is unavailable, the system falls back to deterministic agronomic guidance labeled clearly as *Demo / Fallback Mode*.
+- **Outbreak data is disclosed as simulated:** The Outbreak Radar displays a fictional regional dataset to demonstrate proximity alerting architecture. It does not reflect actual disease surveillance data.
+- **Market data is representative:** Commodity prices are calibrated against historical Agmarknet benchmarks for scenario modeling, not live price feeds.
+- **Economic calculations are scenarios:** ROI and yield loss figures in the Impact Simulator are scenario models, not financial projections or guarantees.
+- **Risk score is explainable but not scientifically validated:** The 0–100 Farm Health Score reacts to real inputs and is fully transparent, but it is a prototype weighting model, not a peer-reviewed forecasting instrument.
+- **Chemical guidance follows the label principle:** The application references standard active ingredients and directs users to registered product labels and professional guidance. It does not generate arbitrary dosages.
+- **No secrets in client code:** All Gemini API credentials are handled server-side via Express or Vercel Serverless functions. No keys are exposed in the browser bundle.
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+| :--- | :--- |
+| Frontend | React 18, Vite 5, Tailwind CSS 3.4 |
+| Icons | Lucide React |
+| Charts | Recharts |
+| Maps | Leaflet + React-Leaflet |
+| AI | Google Gemini 2.5 Flash (`@google/generative-ai`) |
+| Weather | Open-Meteo API |
+| Backend | Node.js, Express |
+| Deployment | Vercel (serverless API + static SPA) |
+
+---
+
+## Local Setup
 
 ### Prerequisites
-- Node.js 18+ (tested up to Node.js 24)
+- Node.js 18+ (tested to Node.js 24)
 - npm 9+
 
 ### 1. Clone & Install
+
 ```bash
 git clone https://github.com/akashgamerz6575-spec/AgriShield-X.git
 cd AgriShield-X
 npm install
 ```
 
-### 2. Configure Environment (Optional for Live Gemini AI)
-Create a `.env` file in the root or `backend/` directory:
+### 2. Configure Environment
+
+Create a `.env` file in the project root:
+
 ```env
 PORT=5000
 GEMINI_API_KEY=your_google_gemini_api_key_here
 ```
-> *Note: If `GEMINI_API_KEY` is not provided, AgriShield X automatically operates in high-fidelity deterministic demo mode so all features remain 100% interactive for testing and judging.*
+
+> If `GEMINI_API_KEY` is not provided, AgriShield X operates in deterministic fallback mode. All features remain interactive — the Copilot and Crop Doctor respond using verified agronomic fallback content, labeled clearly as *Demo Mode*.
 
 ### 3. Run Development Servers
-To run both backend and frontend concurrently:
+
 ```bash
-# Terminal 1 (Backend API on http://localhost:5000):
+# Terminal 1 — Backend API (http://localhost:5000)
 npm run dev:backend
 
-# Terminal 2 (Frontend Dev Server on http://localhost:3000):
+# Terminal 2 — Frontend dev server (http://localhost:3000)
 npm run dev:frontend
 ```
 
-### 4. Build for Production
+### 4. Production Build
+
 ```bash
 npm run build
 npm start
 ```
-The Express server will build and serve the optimized production single-page application at `http://localhost:5000`.
 
 ---
 
-## 🚀 Deployment (Vercel)
+## Vercel Deployment
 
-AgriShield X is pre-configured for one-click deployment on **Vercel** with full serverless API routing via `vercel.json`:
+AgriShield X is pre-configured for Vercel via `vercel.json`:
+
 1. Push repository to GitHub.
-2. Import project into Vercel.
-3. Configure Environment Variables: `GEMINI_API_KEY` (optional for live AI).
-4. Set Build Command: `npm run build:frontend`.
-5. Set Output Directory: `frontend/dist`.
+2. Import project into Vercel (connect to GitHub repository).
+3. Add environment variable: `GEMINI_API_KEY`.
+4. Build command: `npm run build` (or `npm run build:frontend`).
+5. Output directory: `frontend/dist`.
+
+Vercel handles serverless API routing automatically via the rewrite rules in `vercel.json`.
 
 ---
 
-## 👥 HackDevengers 2.0 Team
-Developed with ❤️ by the AgriShield X Team for HackDevengers 2.0.
+## HackDevengers 2.0
+
+Developed for **HackDevengers 2.0** by the AgriShield X Team.
