@@ -17,7 +17,7 @@ Crop disease does not arrive as a simple alert. It emerges from a combination of
 
 The problem is not that farmers lack individual pieces of information. Weather data exists. Crop observations can be made. Disease guidance is available. The problem is that these signals arrive separately — and a farmer must manually hold all of them in mind, interpret their combined meaning, and decide what to do, often without clear priority ordering, without an explanation of what is driving the risk, and without the ability to ask a follow-up question in their own language.
 
-This fragmentation is not a minor inconvenience. The FAO estimates plant pests and diseases account for roughly 20–40% of global crop yield losses annually — a significant share of which occurs in contexts where early-warning and decision-support systems are absent, inaccessible, or too technical to act on.
+This fragmentation is not a minor inconvenience. The FAO estimates that plant pests and diseases reduce global crop yields by roughly 20–40% each year ([FAO — Plant Health](https://www.fao.org/plant-health-2020/en/)).
 
 The real failure is not a data gap. It is a decision gap.
 
@@ -39,7 +39,7 @@ OBSERVE → DIAGNOSE → PREDICT → EXPLAIN → COMMUNICATE → ACT → TRACK
 
 **Observe:** Live weather data from Open-Meteo is combined with farm field state and crop metadata.
 
-**Diagnose:** A farmer uploads a crop image or selects a pre-loaded sample. Google Gemini 2.5 Flash performs multimodal visual analysis and returns a disease identification with severity assessment, visual reasoning, and treatment protocols.
+**Diagnose:** A farmer uploads a crop image or selects a pre-loaded sample. Google Gemini AI (gemini-3.1-flash-lite; with resilient model chain fallback) performs multimodal visual analysis and returns a disease identification with severity assessment, visual reasoning, and treatment protocols.
 
 **Predict / Risk Model:** The risk engine combines the diagnosis result, current weather conditions, crop growth stage, irrigation state, and simulated regional outbreak proximity into a 0–100 Farm Health Score with full factor-level transparency.
 
@@ -91,7 +91,7 @@ The system does not treat disease identification as the end state. It treats it 
 
 2. **Explainable farm risk factors** — Every score exposes its contributing factors. A warning without an explanation is not decision support.
 
-3. **Real Gemini multimodal crop analysis** — Gemini 2.5 Flash performs live server-side inference on crop images. Not a classification wrapper — full multimodal visual reasoning with treatment protocol generation.
+3. **Real Gemini multimodal crop analysis** — Google Gemini AI (gemini-3.1-flash-lite primary) performs live server-side inference on crop images. Not a classification wrapper — full multimodal visual reasoning with treatment protocol generation.
 
 4. **Contextual Gemini Farm Copilot** — Farm Copilot receives live farm state (active fields, crops, weather, alerts) before every response, enabling context-specific agronomic guidance rather than generic answers.
 
@@ -117,11 +117,11 @@ These design choices address the decision gap more directly than additional data
 
 | Capability | Implementation | Status |
 | :--- | :--- | :--- |
-| Crop image analysis | Gemini 2.5 Flash multimodal AI | Real AI |
-| Farm Copilot | Gemini 2.5 Flash + live farm context | Real AI |
+| Crop image analysis | Google Gemini AI (gemini-3.1-flash-lite; resilient model chain) | Real AI |
+| Farm Copilot | Google Gemini AI (gemini-3.1-flash-lite; resilient model chain) + live farm context | Real AI |
 | Weather data | Open-Meteo API | Live external data |
 | Demo farm state | Pre-seeded application data | Demo |
-| Regional outbreak signals | Fictional regional dataset (Raichur District scenario) | Simulated |
+| Regional outbreak signals | Fictional multi-region Karnataka scenario (Kolar, Mandya, Bengaluru corridor, Davanagere) | Simulated |
 | Risk engine | Explainable deterministic weighted model | Prototype |
 | Market intelligence | Representative regional benchmark dataset | Demo |
 | Economic impact modeling | Scenario-based calculation | Prototype estimate |

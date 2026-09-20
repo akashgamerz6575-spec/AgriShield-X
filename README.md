@@ -39,8 +39,7 @@ FRAGMENTED SIGNALS
     → REACTIVE / UNCERTAIN DECISIONS
 ```
 
-The FAO estimates that plant pests and diseases are responsible for roughly **20–40% of global crop yield losses annually** — a significant share of which occurs where early-warning systems and decision support are absent or inaccessible.
-([FAO, The State of Food and Agriculture, 2023](https://www.fao.org/publications/sofa))
+The FAO estimates that plant pests and diseases reduce global crop yields by roughly **20–40% each year**. ([FAO — Plant Health](https://www.fao.org/plant-health-2020/en/))
 
 ### The Design Question
 
@@ -101,7 +100,7 @@ A score of `Risk = 95` without explanation is not decision support. AgriShield X
 | Factor | Direction |
 | :--- | :--- |
 | Disease pressure (active infection) | Increases risk |
-| Weather risk (humidity, leaf wetness forecast) | Increases risk |
+| Weather favorability (humidity, rainfall probability) | Increases risk |
 | Irrigation / soil moisture condition | Increases or decreases risk |
 | Crop condition / growth stage | Increases or decreases risk |
 | Regional outbreak proximity | Increases risk |
@@ -217,11 +216,11 @@ AgriShield X explicitly distinguishes live integrations from demo or simulated d
 
 | Capability | Implementation | Status |
 | :--- | :--- | :--- |
-| Crop image analysis | Gemini 2.5 Flash multimodal AI | **Real AI** |
-| Farm Copilot | Gemini 2.5 Flash + live farm context | **Real AI** |
+| Crop image analysis | Google Gemini AI (gemini-3.1-flash-lite; resilient model chain) | **Real AI** |
+| Farm Copilot | Google Gemini AI (gemini-3.1-flash-lite; resilient model chain) + live farm context | **Real AI** |
 | Weather data | Open-Meteo API | **Live external data** |
 | Demo farm state | Pre-seeded application data (4 fields, crops, events) | **Demo** |
-| Regional outbreak signals | Regional dataset (Raichur District scenario) | **Simulated** |
+| Regional outbreak signals | Fictional multi-region Karnataka scenario (Kolar, Mandya, Bengaluru corridor, Davanagere) | **Simulated** |
 | Risk engine | Explainable deterministic weighted model | **Prototype** |
 | Market intelligence | Representative regional benchmark dataset | **Demo** |
 | Economic impact modeling | Scenario-based calculation | **Prototype estimate** |
@@ -258,7 +257,7 @@ AgriShield X is a decision-support prototype.
 | Icons | Lucide React |
 | Charts | Recharts |
 | Maps | Leaflet + React-Leaflet |
-| AI | Google Gemini 2.5 Flash (`@google/generative-ai`) |
+| AI | Google Gemini AI — gemini-3.1-flash-lite (primary), gemini-3.5-flash / gemini-flash-latest fallback (@google/generative-ai) |
 | Weather | Open-Meteo API |
 | Backend | Node.js, Express |
 | Deployment | Vercel (serverless API + static SPA) |
