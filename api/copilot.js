@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   if (apiKey && apiKey !== "YOUR_GEMINI_API_KEY" && apiKey.trim() !== "") {
     try {
       const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite" });
 
       const systemPrompt = `You are AgriShield Copilot, an expert AI agronomic advisor.
 Active Farm Context:
@@ -43,6 +43,9 @@ CRITICAL INTENT RULES:
       return res.status(200).json({
         reply: response.text(),
         mode: "gemini_live",
+        source: "gemini",
+        fallback: false,
+        model: "gemini-3.1-flash-lite",
         isDemo: false
       });
     } catch (err) {

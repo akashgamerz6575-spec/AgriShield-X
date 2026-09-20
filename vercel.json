@@ -1,18 +1,18 @@
 {
-  "version": 2,
-  "builds": [
+  "buildCommand": "npm run build",
+  "outputDirectory": "frontend/dist",
+  "rewrites": [
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
+      "source": "/api/ai/copilot",
+      "destination": "/api/copilot"
     },
     {
-      "src": "api/*.js",
-      "use": "@vercel/node"
+      "source": "/api/ai/analyze-crop",
+      "destination": "/api/analyze-crop"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
     }
-  ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/frontend/$1" }
   ]
 }

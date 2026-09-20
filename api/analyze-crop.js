@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   if (apiKey && apiKey !== "YOUR_GEMINI_API_KEY" && apiKey.trim() !== "") {
     try {
       const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite" });
 
       const prompt = `You are AgriShield X, an advanced AI agricultural disease diagnostics system.
 Analyze the provided crop/plant image.

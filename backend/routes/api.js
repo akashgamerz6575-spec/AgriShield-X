@@ -15,7 +15,7 @@ router.get('/health', (req, res) => {
 });
 
 // Crop Image Analysis
-router.post('/ai/analyze-crop', async (req, res) => {
+router.post(['/analyze-crop', '/ai/analyze-crop'], async (req, res) => {
   try {
     const { image, mimeType, lang } = req.body;
     if (!image) {
@@ -30,7 +30,7 @@ router.post('/ai/analyze-crop', async (req, res) => {
 });
 
 // AgriShield Copilot Chat
-router.post('/ai/copilot', async (req, res) => {
+router.post(['/copilot', '/ai/copilot'], async (req, res) => {
   try {
     const { prompt, farmContext, lang } = req.body;
     if (!prompt) {

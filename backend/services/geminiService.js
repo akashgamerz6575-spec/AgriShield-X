@@ -1,10 +1,30 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+if (!process.env.GEMINI_API_KEY) {
+  dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+  dotenv.config({ path: path.resolve(__dirname, '../.env') });
+  dotenv.config();
+}
+
 
 /**
  * Gemini Service for AgriShield X
  * Proxy for crop image analysis and context-aware agricultural copilot.
  * Gracefully falls back to deterministic AI analysis if API key is missing or fails.
  */
+
+
+const getModelCandidates = () => {
+  const custom = process.env.GEMINI_MODEL;
+  if (custom) return [custom, 'gemini-3.1-flash-lite', 'gemini-3.5-flash'];
+  return ['gemini-3.1-flash-lite', 'gemini-3.5-flash', 'gemini-flash-latest'];
+};
 
 const getLangName = (lang) => {
   switch (lang) {
@@ -22,7 +42,9 @@ export const analyzeCropImage = async (base64Image, mimeType = 'image/jpeg', lan
   if (apiKey && apiKey !== 'YOUR_GEMINI_API_KEY' && apiKey.trim() !== '') {
     try {
       const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+      const candidates = getModelCandidates();
+      let parsed = null;
+      let usedModel = candidates[0];
 
       const prompt = `You are AgriShield X, an advanced AI agricultural disease diagnostics system.
 Analyze the provided crop/plant image.
@@ -64,32 +86,53 @@ Return output STRICTLY as valid JSON with this exact structure:
   }
 }`;
 
+      const cleanBase64 = base64Image.replace(/^data:image\/[^;]+;base64,/, '').replace(/^data:[^;]+;base64,/, '');
       const imagePart = {
         inlineData: {
-          data: base64Image.replace(/^data:image\/\w+;base64,/, ''),
-          mimeType: mimeType || 'image/jpeg'
+          data: cleanBase64,
+          mimeType: (mimeType && mimeType.startsWith('image/')) ? mimeType : 'image/jpeg'
         }
       };
 
-      const result = await model.generateContent([prompt, imagePart]);
-      const response = await result.response;
-      const text = response.text();
+      for (const mName of candidates) {
+        try {
+          const model = genAI.getGenerativeModel({ model: mName });
+          const result = await model.generateContent([prompt, imagePart]);
+          const response = await result.response;
+          const text = response.text();
+          const jsonMatch = text.match(/\{[\s\S]*\}/);
+          if (jsonMatch) {
+            parsed = JSON.parse(jsonMatch[0]);
+            usedModel = mName;
+            break;
+          }
+        } catch (mErr) {
+          console.warn(`[AgriShield AI Proxy] Model ${mName} attempt failed:`, mErr.message ? mErr.message.replace(/key=[^&\s]+/gi, "key=***REDACTED***") : mErr);
+        }
+      }
 
-      const jsonMatch = text.match(/\{[\s\S]*\}/);
-      if (jsonMatch) {
-        const parsed = JSON.parse(jsonMatch[0]);
+      if (parsed) {
         return {
           ...parsed,
-          mode: 'ai_live'
+          mode: 'ai_live',
+          source: 'gemini',
+          fallback: false,
+          model: usedModel
         };
       }
     } catch (err) {
-      console.warn('[AgriShield AI Proxy] Gemini API call failed or unconfigured, switching to deterministic demo fallback:', err.message);
+      console.warn("[AgriShield AI Proxy] Gemini API call failed:", err.message ? err.message.replace(/key=[^&\s]+/gi, "key=***REDACTED***") : err);
     }
   }
 
   // Deterministic Demo Fallback
-  return getDeterministicCropAnalysis(base64Image, lang);
+  const fallback = getDeterministicCropAnalysis(base64Image, lang);
+  return {
+    ...fallback,
+    source: 'fallback',
+    fallback: true,
+    model: 'deterministic-fallback'
+  };
 };
 
 export const getCopilotResponse = async (userPrompt, farmContext = {}, lang = 'en') => {
@@ -99,7 +142,9 @@ export const getCopilotResponse = async (userPrompt, farmContext = {}, lang = 'e
   if (apiKey && apiKey !== 'YOUR_GEMINI_API_KEY' && apiKey.trim() !== '') {
     try {
       const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+      const candidates = getModelCandidates();
+      let replyText = null;
+      let usedModel = candidates[0];
 
       const contextPrompt = `You are AgriShield Copilot, an expert AI agronomist providing actionable, scientific crop protection advice to Indian farmers.
 Active Farm Telemetry:
@@ -116,18 +161,40 @@ CRITICAL INTENT RULES:
 
 User Question: ${userPrompt}`;
 
-      const result = await model.generateContent(contextPrompt);
-      const response = await result.response;
-      return {
-        reply: response.text(),
-        mode: 'gemini_live'
-      };
+      for (const mName of candidates) {
+        try {
+          const model = genAI.getGenerativeModel({ model: mName });
+          const result = await model.generateContent(contextPrompt);
+          const response = await result.response;
+          replyText = response.text();
+          usedModel = mName;
+          break;
+        } catch (mErr) {
+          console.warn(`[AgriShield Copilot] Model ${mName} attempt failed:`, mErr.message ? mErr.message.replace(/key=[^&\s]+/gi, "key=***REDACTED***") : mErr);
+        }
+      }
+
+      if (replyText) {
+        return {
+          reply: replyText,
+          mode: 'gemini_live',
+          source: 'gemini',
+          fallback: false,
+          model: usedModel
+        };
+      }
     } catch (err) {
-      console.warn('[AgriShield Copilot] Gemini API call failed, using deterministic agronomic fallback:', err.message);
+      console.warn("[AgriShield Copilot] Gemini API call failed:", err.message ? err.message.replace(/key=[^&\s]+/gi, "key=***REDACTED***") : err);
     }
   }
 
-  return getDeterministicCopilotReply(userPrompt, farmContext, lang);
+  const fallback = getDeterministicCopilotReply(userPrompt, farmContext, lang);
+  return {
+    ...fallback,
+    source: 'fallback',
+    fallback: true,
+    model: 'deterministic-fallback'
+  };
 };
 
 const getDeterministicCropAnalysis = (base64Image, lang = 'en') => {

@@ -26,7 +26,22 @@ export default function CropDoctor() {
     }
   };
 
-  const handleSampleSelect = (sample) => {
+  const handleSampleSelect = async (sample) => {
+    if (sample.imageSrc) {
+      try {
+        const res = await fetch(sample.imageSrc);
+        const blob = await res.blob();
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setSelectedImage(reader.result);
+          triggerAnalysis(reader.result, sample);
+        };
+        reader.readAsDataURL(blob);
+        return;
+      } catch (err) {
+        console.warn('Sample image fetch failed:', err);
+      }
+    }
     setSelectedImage(sample.imageSvg);
     triggerAnalysis(sample.imageSvg, sample);
   };
@@ -37,7 +52,7 @@ export default function CropDoctor() {
     setSaveSuccessMsg('');
 
     try {
-      const response = await fetch('/api/ai/analyze-crop', {
+      const response = await fetch('/api/analyze-crop', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image: base64Img, mimeType: 'image/jpeg', lang })

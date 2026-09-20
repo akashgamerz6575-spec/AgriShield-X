@@ -1,28 +1,31 @@
 {
-    "name":  "agrishield-x",
-    "version":  "1.0.0",
-    "description":  "Predictive AI for Smarter Crop Protection - Built for HackDevengers 2.0",
-    "private":  true,
-    "type":  "module",
-    "workspaces":  [
-                       "frontend",
-                       "backend"
-                   ],
-    "scripts":  {
-                    "dev:frontend":  "npm --prefix frontend run dev",
-                    "dev:backend":  "npm --prefix backend run dev",
-                    "build:frontend":  "npm --prefix frontend run build",
-                    "build":  "npm run build:frontend",
-                    "start":  "npm --prefix backend start",
-                    "postinstall":  "node scripts/patch-rollup.js"
-                },
-    "keywords":  [
-                     "agrishield",
-                     "predictive-ai",
-                     "crop-protection",
-                     "agriculture",
-                     "hackdevengers-2.0"
-                 ],
-    "author":  "AgriShield X Team",
-    "license":  "MIT"
+  "name": "agrishield-x",
+  "version": "1.0.0",
+  "description": "Predictive AI for Smarter Crop Protection - Built for HackDevengers 2.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "build:frontend": "npm --prefix frontend run build",
+    "build": "npm run build:frontend",
+    "start": "npm --prefix backend start",
+    "postinstall": "node scripts/patch-rollup.js"
+  },
+  "keywords": [
+    "agrishield",
+    "predictive-ai",
+    "crop-protection",
+    "agriculture",
+    "hackdevengers-2.0"
+  ],
+  "author": "AgriShield X Team",
+  "license": "MIT",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1"
+  }
 }

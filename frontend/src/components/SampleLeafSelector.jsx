@@ -8,6 +8,7 @@ export default function SampleLeafSelector({ onSelectSample }) {
   const sampleLeaves = [
     {
       id: 'sample-tomato-blight',
+      imageSrc: '/samples/tomato-early-blight.jpg',
       crop: 'Tomato',
       cropKey: 'tomato',
       condition: 'Early Blight (Alternaria solani)',
@@ -69,7 +70,7 @@ export default function SampleLeafSelector({ onSelectSample }) {
             >
               <div className="flex items-start gap-3 mb-2">
                 <img
-                  src={sample.imageSvg}
+                  src={sample.imageSrc || sample.imageSvg}
                   alt={sample.crop}
                   className="w-10 h-10 rounded-lg object-cover border border-slate-200 dark:border-slate-700/60 shrink-0 mt-0.5"
                 />

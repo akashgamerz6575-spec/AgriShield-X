@@ -125,7 +125,7 @@ export default function FarmCopilot() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/ai/copilot', {
+      const response = await fetch('/api/copilot', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
