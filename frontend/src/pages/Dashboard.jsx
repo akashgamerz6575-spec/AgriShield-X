@@ -63,7 +63,7 @@ export default function Dashboard() {
         </div>
         <div className="flex items-center gap-2.5 shrink-0">
           <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white dark:bg-[#131b27] border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 shadow-xs font-medium">
-            <MapPin className="w-4 h-4 text-forest-500 dark:text-emerald-400 shrink-0" />
+            <MapPin className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
             <span>{weather.location || t.regionLocation}</span>
           </div>
         </div>
@@ -188,7 +188,7 @@ export default function Dashboard() {
             </div>
             <button
               onClick={() => navigate('/actions')}
-              className="px-5 py-2.5 bg-forest-500 hover:bg-forest-600 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer shrink-0 shadow-xs"
+              className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-semibold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer shrink-0 shadow-xs"
             >
               <span>{t.dashboard.viewActionPlan}</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -296,7 +296,7 @@ export default function Dashboard() {
               </span>
               <button
                 onClick={() => navigate('/fields')}
-                className="text-xs font-semibold text-forest-600 dark:text-emerald-400 hover:text-forest-700 dark:hover:text-emerald-300 flex items-center gap-1 cursor-pointer transition-colors"
+                className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center gap-1 cursor-pointer transition-colors"
               >
                 <span>{t.dashboard.viewAllFields}</span>
                 <ChevronRight className="w-3.5 h-3.5" />

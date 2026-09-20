@@ -20,7 +20,7 @@ export default function Navbar() {
         
         {/* Brand */}
         <Link to="/" className="flex items-center gap-2 group shrink-0" aria-label="AgriShield X Home">
-          <AgriShieldMark size={20} className="text-forest-500 dark:text-emerald-400" />
+          <AgriShieldMark size={20} className="text-emerald-600 dark:text-emerald-400" />
           <span className="font-outfit font-bold text-sm tracking-tight text-slate-900 dark:text-white">
             AgriShield X
           </span>
@@ -33,7 +33,7 @@ export default function Navbar() {
           <button
             onClick={resetDemoFarm}
             title={t.resetDemo}
-            className="flex items-center gap-1.5 text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer font-medium"
+            className="flex items-center gap-1.5 text-[11px] text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300/80 dark:border-slate-700 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer font-medium shadow-2xs"
           >
             <RotateCcw className="w-3 h-3" />
             <span className="hidden sm:inline">{t.resetDemo}</span>
@@ -43,7 +43,7 @@ export default function Navbar() {
           <button
             onClick={toggleTheme}
             title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            className="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+            className="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-300/80 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer shadow-2xs"
             aria-label="Toggle Theme"
           >
             {theme === 'dark' ? (
@@ -54,16 +54,16 @@ export default function Navbar() {
           </button>
 
           {/* Desktop Language Selector */}
-          <div className="hidden sm:flex items-center border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white/60 dark:bg-slate-800/40">
-            <Languages className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 ml-2 shrink-0" />
+          <div className="hidden sm:flex items-center border border-slate-300/80 dark:border-slate-700 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-800/60 p-0.5">
+            <Languages className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 ml-1.5 mr-1 shrink-0" />
             {languages.map(l => (
               <button
                 key={l.code}
                 onClick={() => setLang(l.code)}
-                className={`text-[11px] px-2 py-1.5 font-medium cursor-pointer transition-colors ${
+                className={`text-[11px] px-2.5 py-1 rounded-md font-medium cursor-pointer transition-all ${
                   lang === l.code
-                    ? 'bg-forest-500 dark:bg-emerald-600 text-white font-semibold'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+                    ? 'bg-emerald-600 dark:bg-emerald-600 text-white font-semibold shadow-xs'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-slate-700/60'
                 }`}
               >
                 {l.label}

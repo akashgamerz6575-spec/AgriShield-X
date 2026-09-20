@@ -82,11 +82,11 @@ export default function Sidebar() {
                     to={item.path}
                     className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-colors cursor-pointer ${
                       isActive
-                        ? 'bg-forest-50 dark:bg-emerald-950/40 text-forest-700 dark:text-emerald-400 font-semibold border border-forest-200/60 dark:border-emerald-800/40 shadow-xs'
+                        ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 font-semibold border border-emerald-200 dark:border-emerald-800/60 shadow-xs'
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 font-medium'
                     }`}
                   >
-                    <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-forest-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'}`} />
+                    <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'}`} />
                     <span className="truncate">{item.label}</span>
                   </Link>
                 );
@@ -118,7 +118,7 @@ export default function Sidebar() {
               to={item.path}
               className={`flex flex-col items-center justify-center py-1 px-2 rounded-lg text-[10px] transition-colors ${
                 isActive
-                  ? 'text-forest-600 dark:text-emerald-400 font-semibold'
+                  ? 'text-emerald-600 dark:text-emerald-400 font-semibold'
                   : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
               }`}
             >
