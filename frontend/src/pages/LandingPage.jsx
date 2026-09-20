@@ -349,7 +349,7 @@ export default function LandingPage() {
               See the field. Understand the risk. Decide what to do next.
             </h2>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-2 max-w-2xl">
-              AgriShield X transforms fragmented telemetry into a continuous, three-step protective loop designed for real farm workflows.
+              AgriShield X brings crop observations, weather and field context into a continuous three-step workflow designed for real farm decisions.
             </p>
           </div>
 
@@ -361,7 +361,7 @@ export default function LandingPage() {
                 <span className="text-xs font-mono font-semibold text-slate-400 dark:text-slate-500">01</span>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white font-outfit mt-1">See the field</h3>
                 <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-                  Bring satellite imagery, weather and field data together in one clear view of your farm's health.
+                  Bring weather, crop imagery and field context together in one clear view of your farm's health.
                 </p>
               </div>
               
@@ -490,7 +490,7 @@ export default function LandingPage() {
                 
                 <div className="bg-white dark:bg-[#1a2435] border border-slate-200 dark:border-slate-700 rounded-xl rounded-tl-sm p-3 text-[11px] space-y-2">
                   <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                    Based on current field telemetry and humidity:
+                    Based on current field conditions and weather:
                   </p>
                   <div className="space-y-1.5">
                     <div className="flex items-start gap-2">
@@ -544,7 +544,7 @@ export default function LandingPage() {
               Built for every stage of crop protection
             </h2>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-2 max-w-2xl">
-              Four specialized capabilities delivering comprehensive intelligence from satellite-level field health down to leaf-level molecular diagnosis.
+              Four specialized capabilities delivering comprehensive intelligence from field-level crop health down to leaf-level diagnosis.
             </p>
           </div>
 
@@ -558,15 +558,15 @@ export default function LandingPage() {
                   <Activity className="w-5 h-5" />
                 </div>
                 <span className="text-[11px] font-mono font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-                  Telemetry & NDVI
+                  Field Health & Vigor
                 </span>
               </div>
               <div>
                 <h3 className="text-lg font-bold font-outfit text-slate-900 dark:text-white">
-                  Farm Health & Telemetry
+                  Farm Health Monitoring
                 </h3>
                 <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                  Continuous multi-field vigor monitoring combining multispectral satellite imagery, micro-climate weather stations, and soil moisture tracking.
+                  Continuous multi-field vigor monitoring combining crop condition indicators, micro-climate weather analysis, and soil moisture tracking.
                 </p>
               </div>
               <ul className="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800/80 text-xs text-slate-600 dark:text-slate-300">
@@ -695,7 +695,7 @@ export default function LandingPage() {
                   Farm Copilot Agronomist
                 </h3>
                 <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                  Interactive generative agronomy copilot fluent in Kannada, Hindi, Tamil, and English, grounded in your farm's active parcel telemetry.
+                  Interactive generative agronomy copilot fluent in Kannada, Hindi, Tamil, and English, grounded in your farm's active parcel context.
                 </p>
               </div>
               <ul className="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800/80 text-xs text-slate-600 dark:text-slate-300">
