@@ -4,7 +4,25 @@
 **Tagline**: Predictive AI for Smarter Crop Protection  
 **Target Repository**: [akashgamerz6575-spec/AgriShield-X](https://github.com/akashgamerz6575-spec/AgriShield-X)  
 **Hackathon**: HackDevengers 2.0  
-**Status**: Production-Ready / Fully Tested  
+**Status**: Production-Ready / Live on Vercel  
+**Live URL**: [https://agrishield-x.vercel.app](https://agrishield-x.vercel.app)  
+
+## 🌐 Live Production Deployment
+- **Live URL**: [https://agrishield-x.vercel.app](https://agrishield-x.vercel.app)
+- **GitHub Repository**: [https://github.com/akashgamerz6575-spec/AgriShield-X](https://github.com/akashgamerz6575-spec/AgriShield-X)
+
+### 📊 Data Provenance & Real vs Simulated Architecture
+- **REAL (Live Production Services)**:
+  - **Google Gemini AI Copilot**: Live context-aware agronomic reasoning and multilingual chat (English, Kannada, Hindi, Tamil) powered by Google Gemini AI.
+  - **Google Gemini Crop Doctor 2.0**: Real multimodal visual leaf disease diagnosis with transparent explainable reasoning and organic/chemical protocols.
+  - **Open-Meteo Weather Intelligence**: Live hyper-local weather telemetry (temperature, humidity, precipitation probability, wind speed).
+- **DEMO / SIMULATED DATASETS**:
+  - **Regional Disease Outbreak Radar**: Simulated epidemiological pathogen clusters across Karnataka agricultural corridors calibrated for hackathon demo evaluation.
+  - **APMC Market Intelligence**: Regional benchmark prices and trend indicators.
+  - **Economic Loss Prevention Scenarios**: Multi-scenario ROI and yield preservation models.
+
+---
+
 
 ---
 

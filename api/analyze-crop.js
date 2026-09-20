@@ -79,6 +79,10 @@ Return output STRICTLY as valid JSON with this exact structure:
         const parsed = JSON.parse(jsonMatch[0]);
         return res.status(200).json({
           ...parsed,
+          mode: "ai_live",
+          source: "gemini",
+          fallback: false,
+          model: "gemini-3.1-flash-lite",
           analysisMode: "AI Analysis",
           isDemo: false
         });
@@ -243,3 +247,4 @@ Return output STRICTLY as valid JSON with this exact structure:
     }
   });
 }
+
